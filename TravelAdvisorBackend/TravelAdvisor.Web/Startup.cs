@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -33,6 +34,7 @@ namespace TravelAdvisor.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+<<<<<<< HEAD
             //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
             //services.AddCors(options =>
             //{
@@ -44,6 +46,14 @@ namespace TravelAdvisor.Web
             //                      });
             //});
             //app.UseCors(MyAllowSpecificOrigins);
+=======
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options => //CookieAuthenticationOptions
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
+                });
+
+>>>>>>> 879c58fc5df31b7d4669e9e9eb4fe6f1278653e2
             services.AddScoped<IUnitOfWork, UnitOfWork>();
              services.AddScoped<IUserService, UserService>();
 

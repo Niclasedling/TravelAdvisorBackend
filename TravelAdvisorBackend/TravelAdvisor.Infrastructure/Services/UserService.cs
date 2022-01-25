@@ -26,24 +26,50 @@ namespace TravelAdvisor.Infrastructure.Services
 
         public async Task<UserCreateDto> Create(UserCreateDto newUser)
         {
+            var user = _mapper.Map<User>(newUser);
 
+
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+
+            var isUserExists = users.FirstOrDefault(item => item.Email == newUser.Email);
+
+<<<<<<< HEAD
             //retunera guid i create istället för objektet!!
 
             if (newUser == null)
+=======
+            if (isUserExists == null)
+>>>>>>> 879c58fc5df31b7d4669e9e9eb4fe6f1278653e2
             {
-                throw new Exception();
+                await _unitOfWork.UserRepository.AddAsync(user);
+
+                var newUserDto = _mapper.Map<UserCreateDto>(user);
+
+                await _unitOfWork.SaveChanges();
+
+                return newUserDto;
             }
-            var user = _mapper.Map<User>(newUser);
-
-            await _unitOfWork.UserRepository.AddAsync(user);
-
-            var newUserDto = _mapper.Map<UserCreateDto>(user);
-
-            await _unitOfWork.SaveChanges();
-
-            return newUserDto;
+            else
+            {
+                throw new Exception("User with the email already exists");
+            }
 
 
+        }
+        public async Task<UserLoginDto> Login(UserLoginDto userLogin)
+        {
+            //var user = _mapper.Map<User>(userLogin);
+
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
+            UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
+
+            if (user == null)
+            {
+                throw new Exception("Wrong email or password");
+            }
+
+            return userLoginDto;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -115,10 +141,11 @@ namespace TravelAdvisor.Infrastructure.Services
             
         }
 
-        public IEnumerable<ClaimsIdentity> Authenticate(string email)
+        public Task<UserUpdateDto> Update() //?? checka 
         {
             throw new NotImplementedException();
         }
+<<<<<<< HEAD
 
         public Task<UserUpdateDto> Update()
         {
@@ -130,5 +157,7 @@ namespace TravelAdvisor.Infrastructure.Services
         //    _db.Users.Add(user);
         //    _db.SaveChanges();
         //}
+=======
+>>>>>>> 879c58fc5df31b7d4669e9e9eb4fe6f1278653e2
     }
 }
