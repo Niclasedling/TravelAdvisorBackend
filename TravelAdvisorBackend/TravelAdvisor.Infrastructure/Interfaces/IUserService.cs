@@ -12,7 +12,7 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<UserDto> GetById(Guid id);
 
-        Task<List<UserDto>> GetAll();
+        Task<UserDto> GetAll();
 
         Task<UserDto> GetList();
 

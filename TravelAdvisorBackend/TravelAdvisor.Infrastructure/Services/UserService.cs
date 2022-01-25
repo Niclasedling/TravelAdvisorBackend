@@ -41,8 +41,8 @@ namespace TravelAdvisor.Infrastructure.Services
             var users = await _unitOfWork.UserRepository.GetAllAsync();
             if(users != null)
             {
-                var mappedUsers = _mapper.Map<UserDto>(users);
-                return new List<UserDto>();
+                var mappedUsers = _mapper.Map<List<UserDto>>(users);
+                return mappedUsers;
             }
             return null; //Lägg till felmeddelande
         }
