@@ -20,7 +20,7 @@ namespace TravelAdvisor.Web.Controllers
         private readonly ILogger<UserController> _logger;
 
         public readonly IUserService _userService;
-        private readonly UserService _userRepository;
+        
 
 
 

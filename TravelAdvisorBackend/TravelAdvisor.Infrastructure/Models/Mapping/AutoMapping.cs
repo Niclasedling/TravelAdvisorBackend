@@ -17,6 +17,8 @@ namespace TravelAdvisor.Infrastructure.Models.Mapping
             CreateMap<User, UserCreateDto>().ForMember(dest => dest.Password, opt => opt.Ignore());
             CreateMap<UserDto, User>();
             CreateMap<User, UserDto>().ForMember(dest => dest.Password, opt => opt.Ignore());
+            CreateMap<UserUpdateDto, User>();
+            CreateMap<User, UserUpdateDto>().ForMember(dest => dest.Password, opt => opt.Ignore()).ForMember(dest => dest.Id, opt => opt.Ignore());
 
 
         }

@@ -24,16 +24,39 @@ namespace TravelAdvisor.Infrastructure.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public Task<UserCreateDto> Create(UserCreateDto newUser)
+        public async Task<UserCreateDto> Create(UserCreateDto newUser)
         {
-      
-            throw new NotImplementedException();
-        
+
+            if (newUser == null)
+            {
+                throw new Exception();
+            }
+            var user = _mapper.Map<User>(newUser);
+
+            await _unitOfWork.UserRepository.AddAsync(user);
+
+            var newUserDto = _mapper.Map<UserCreateDto>(user);
+
+            await _unitOfWork.SaveChanges();
+
+            return newUserDto;
+
+
         }
 
-        public Task<bool> Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.UserRepository.GetByGuidAsync(id);
+            bool correct = false;
+            if (user != null)
+            {
+                await _unitOfWork.UserRepository.RemoveAsync(user);
+                await _unitOfWork.SaveChanges();
+                correct = true;
+
+            }
+
+            return correct;
         }
 
         public async Task<List<UserDto>> GetAll()
@@ -57,8 +80,9 @@ namespace TravelAdvisor.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserUpdateDto> Update()
+        public async Task<UserUpdateDto> Update(UserUpdateDto userUpdateDto)
         {
+            var user = await _unitOfWork.UserRepository.UpdateAsync(userUpdateDto);
             throw new NotImplementedException();
         }
 
