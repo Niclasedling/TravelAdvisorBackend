@@ -24,11 +24,11 @@ namespace TravelAdvisor.Web.Controllers
 
 
 
-        public UserController(IUserService userService, ILogger<UserController> logger, UserService userRepository)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _logger = logger;
-            _userRepository = userRepository;
+           
 
         }
 
@@ -45,6 +45,10 @@ namespace TravelAdvisor.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             var item = await _userService.GetAll();
+            if(item == null)
+            {
+                return BadRequest("Item is null");
+            }
             return Ok(item);
 
         }

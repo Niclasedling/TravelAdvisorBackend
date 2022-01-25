@@ -36,9 +36,15 @@ namespace TravelAdvisor.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<UserDto> GetAll()
+        public async Task<List<UserDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            if(users != null)
+            {
+                var mappedUsers = _mapper.Map<UserDto>(users);
+                return new List<UserDto>();
+            }
+            return null; //Lägg till felmeddelande
         }
 
         public Task<UserDto> GetById(Guid id)
