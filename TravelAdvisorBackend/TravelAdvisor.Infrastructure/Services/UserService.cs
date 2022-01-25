@@ -81,9 +81,16 @@ namespace TravelAdvisor.Infrastructure.Services
         }
 
         public async Task<UserUpdateDto> Update(UserUpdateDto userUpdateDto)
-        {
-            var user = await _unitOfWork.UserRepository.UpdateAsync(userUpdateDto);
-            throw new NotImplementedException();
+        {   
+            if (userUpdateDto == null) throw new ArgumentNullException(nameof(userUpdateDto));
+
+            var user = _mapper.Map<User>(userUpdateDto);
+            await _unitOfWork.UserRepository.UpdateAsync(user);
+
+            var updatedUser = _mapper.Map<UserUpdateDto>(user);
+            await _unitOfWork.SaveChanges();
+
+            return updatedUser;
         }
 
 
