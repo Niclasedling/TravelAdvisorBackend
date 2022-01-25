@@ -26,22 +26,44 @@ namespace TravelAdvisor.Infrastructure.Services
 
         public async Task<UserCreateDto> Create(UserCreateDto newUser)
         {
-
-            if (newUser == null)
-            {
-                throw new Exception();
-            }
             var user = _mapper.Map<User>(newUser);
 
-            await _unitOfWork.UserRepository.AddAsync(user);
 
-            var newUserDto = _mapper.Map<UserCreateDto>(user);
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
 
-            await _unitOfWork.SaveChanges();
+            var isUserExists = users.FirstOrDefault(item => item.Email == newUser.Email);
 
-            return newUserDto;
+            if (isUserExists == null)
+            {
+                await _unitOfWork.UserRepository.AddAsync(user);
+
+                var newUserDto = _mapper.Map<UserCreateDto>(user);
+
+                await _unitOfWork.SaveChanges();
+
+                return newUserDto;
+            }
+            else
+            {
+                throw new Exception("User with the email already exists");
+            }
 
 
+        }
+        public async Task<UserLoginDto> Login(UserLoginDto userLogin)
+        {
+            //var user = _mapper.Map<User>(userLogin);
+
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
+            UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
+
+            if (user == null)
+            {
+                throw new Exception("Wrong email or password");
+            }
+
+            return userLoginDto;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -113,15 +135,9 @@ namespace TravelAdvisor.Infrastructure.Services
             
         }
 
-        public IEnumerable<ClaimsIdentity> Authenticate(string email)
+        public Task<UserUpdateDto> Update() //?? checka 
         {
             throw new NotImplementedException();
         }
-
-        //public void Add(User user)
-        //{
-        //    _db.Users.Add(user);
-        //    _db.SaveChanges();
-        //}
     }
 }

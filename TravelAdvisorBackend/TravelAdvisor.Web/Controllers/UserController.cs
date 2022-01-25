@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TravelAdvisor.Infrastructure.Interfaces;
@@ -74,6 +75,15 @@ namespace TravelAdvisor.Web.Controllers
             return Ok(item);
         }
 
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(UserLoginDto userLogin)
+        {
+            var item = await _userService.Login(userLogin);
+            await Authenticate(item.Email);
+
+            return Ok(item);
+        }
+
         [HttpPut("Update")]
         public async Task<IActionResult> Update()
         {
@@ -81,59 +91,27 @@ namespace TravelAdvisor.Web.Controllers
             return Ok(item);
         }
 
-        //[HttpPost("Login")]
-        //public async Task<IActionResult> Login(Login model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
+        [NonAction]
+        private async Task Authenticate(string email)
+        {
+            // создаем один claim
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimsIdentity.DefaultNameClaimType, email)
+            };
+            // создаем объект ClaimsIdentity
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
-        //        if (_userRepository.GetByEmailAndPassword(model.Email, model.Password) != null)
-        //        {
-        //            await HttpContext.SignInAsync(
-        //             CookieAuthenticationDefaults.AuthenticationScheme,
-        //             new ClaimsPrincipal(_userRepository.Authenticate(model.Email)));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+        }
 
-        //            return new JsonResult(model.Email);
-        //        }
-        //        else
-        //        {
-        //            return new JsonResult("Wrong Email or password");
 
-        //        }
-
-        //    }
-        //    return new JsonResult(model);
-        //}
-
-        //!!!!!!!!!!!!!!!!!!!!!Registrering!!!!!!!!!!!!!!!!!!!
-
-        //[HttpPost("Register")]
-        //public async Task<IActionResult> Register(Register model)
-        //{
-
-        //    if (_userRepository.GetByEmail(model.Email) == null)
-        //    {
-        //        _userRepository.Add(new User { FirstName = model.FirstName, LastName = model.LastName, Email = model.Email, Password = model.Password });
-
-        //        return Ok($"{ model.Email } is success");
-
-        //        //return new JsonResult($"{ model.Email } is success");
-        //    }
-        //    else
-        //    {
-        //        return Ok("User with this email already exists ");
-
-        //        //return new JsonResult("User with this email already exists ");
-        //    }
-            
-
-        //}
-        //[HttpPost("Logout")]
-        //public async Task<IActionResult> Logout()
-        //{
-        //    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-        //    return new JsonResult("Thanks for your visit!");
-        //}
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok("Thanks for your visit!");
+        }
 
     }
 }
