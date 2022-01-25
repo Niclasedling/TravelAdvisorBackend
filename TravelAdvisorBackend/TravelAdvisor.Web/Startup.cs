@@ -33,8 +33,18 @@ namespace TravelAdvisor.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: MyAllowSpecificOrigins,
+            //                      builder =>
+            //                      {
+            //                          builder.WithOrigins("http://example.com",
+            //                                              "http://www.contoso.com");
+            //                      });
+            //});
+            //app.UseCors(MyAllowSpecificOrigins);
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
              services.AddScoped<IUserService, UserService>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
@@ -64,7 +74,7 @@ namespace TravelAdvisor.Web
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TravelAdvisor.Web v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -27,6 +27,8 @@ namespace TravelAdvisor.Infrastructure.Services
         public async Task<UserCreateDto> Create(UserCreateDto newUser)
         {
 
+            //retunera guid i create istället för objektet!!
+
             if (newUser == null)
             {
                 throw new Exception();
@@ -114,6 +116,11 @@ namespace TravelAdvisor.Infrastructure.Services
         }
 
         public IEnumerable<ClaimsIdentity> Authenticate(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<UserUpdateDto> Update()
         {
             throw new NotImplementedException();
         }
