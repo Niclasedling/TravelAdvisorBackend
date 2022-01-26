@@ -21,20 +21,16 @@ namespace TravelAdvisor.Infrastructure.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<AttractionCreateDto> Create(AttractionCreateDto newAttraction)
+        public async Task<Guid> Create(AttractionCreateDto newAttraction)
         {
-            if (newAttraction == null)
-            {
-                throw new Exception();
-            }
 
-            var attraction = _mapper.Map<Attraction>(newAttraction);
-            await _unitOfWork.AttractionRepository.AddAsync(attraction);
+            if (newAttraction == null) throw new NullReferenceException(nameof(newAttraction));
+
+            var createdAttraction = await _unitOfWork.AttractionRepository.AddAsync(_mapper.Map<Attraction>(newAttraction));
 
             await _unitOfWork.SaveChanges();
 
-            return _mapper.Map<AttractionCreateDto>(attraction);
-
+            return createdAttraction.Id;
         }
 
         public async Task<bool> Delete(Guid id)
@@ -88,27 +84,19 @@ namespace TravelAdvisor.Infrastructure.Services
             return null; //Lägg till felmeddelande
         }
 
-        public async Task<AttractionDto> Update(AttractionUpdateDto updateAttraction)
+        public async Task<bool> Update(AttractionUpdateDto updateAttraction)
         {
-            if (updateAttraction == null)
-            {
-                throw new ArgumentNullException(nameof(updateAttraction));
-            }
+            if (updateAttraction == null) throw new ArgumentNullException(nameof(updateAttraction));
 
-            var attraction = _mapper.Map<Attraction>(updateAttraction);
-            await _unitOfWork.AttractionRepository.UpdateAsync(attraction);
+            await _unitOfWork.AttractionRepository.UpdateAsync(_mapper.Map<Attraction>(updateAttraction));
 
             await _unitOfWork.SaveChanges();
-            var dbAttraction = _mapper.Map<AttractionUpdateDto>(await _unitOfWork.AttractionRepository.GetByGuidAsync(updateAttraction.Id));
 
-            if (dbAttraction == updateAttraction)
-            {
-                return _mapper.Map<AttractionDto>(dbAttraction);
-            }
-            else
-            {
-                return null; //Lägg till felmeddelande
-            }
+            var dbAttraction = _mapper.Map<AttractionUpdateDto>(await _unitOfWork.AttractionRepository.GetByGuidAsync(updateAttraction.Id));
+            
+            if (dbAttraction == updateAttraction) return true;
+
+            else return false;
         }
     }
 }

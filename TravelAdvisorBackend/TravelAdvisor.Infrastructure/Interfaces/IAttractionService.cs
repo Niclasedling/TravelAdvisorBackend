@@ -17,8 +17,8 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<bool> Delete(Guid id);
 
-        Task<AttractionCreateDto> Create(AttractionCreateDto newAttraction);
+        Task<Guid> Create(AttractionCreateDto newAttraction);
 
-        Task<AttractionDto> Update(AttractionUpdateDto updateAttraction);
+        Task<bool> Update(AttractionUpdateDto updateAttraction);
     }
 }

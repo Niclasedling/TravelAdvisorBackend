@@ -29,7 +29,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetById)} returned null.");
+            return BadRequest($"{nameof(GetById)} returned null."); // Tillfällig - fixa sen
         }
 
         [HttpGet("GetAll")]
@@ -40,7 +40,7 @@ namespace TravelAdvisor.Web.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest($"{nameof(GetAll)} returned null.");
+            return BadRequest($"{nameof(GetAll)} returned null."); // Tillfällig - fixa sen
         }
 
 
@@ -53,18 +53,18 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetList)} returned null.");
+            return BadRequest($"{nameof(GetList)} returned null."); // Tillfällig - fixa sen
         }
 
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            if(await _attractionService.Delete(id))
+            if (await _attractionService.Delete(id))
             {
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Delete)} returned false.");
+            return BadRequest($"{nameof(Delete)} returned false."); // Tillfällig - fixa sen
         }
 
         [HttpPost("Create")]
@@ -72,25 +72,22 @@ namespace TravelAdvisor.Web.Controllers
         {
             var item = await _attractionService.Create(newAttraction);
 
-            if (item != null)
-            {
-                return Ok(item);
-            }
+            return Ok(item);
 
-            return BadRequest($"{nameof(Create)} returned null.");
+            /*return BadRequest($"{nameof(Create)} returned null.");*/ // Tillfällig - fixa sen
         }
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(AttractionUpdateDto updateAttraction)
         {
-            var item = await _attractionService.Update(updateAttraction);
+            var success = await _attractionService.Update(updateAttraction);
 
-            if (item != null)
+            if (success)
             {
-                return Ok(item);
+                return Ok();
             }
 
-            return BadRequest($"{nameof(Update)} returned null.");
+            return BadRequest($"{nameof(Update)} returned null."); // Tillfällig - fixa sen
         }
     }
 }
