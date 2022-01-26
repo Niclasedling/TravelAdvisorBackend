@@ -19,7 +19,12 @@ namespace TravelAdvisor.Infrastructure.Repository
         }
 
 
-        public async Task AddAsync(TEntity entity) => await context.Set<TEntity>().AddAsync(entity);
+        public async Task<TEntity> AddAsync(TEntity entity)
+        {
+            await context.Set<TEntity>().AddAsync(entity);
+            return entity;
+        }
+        
 
         public async Task AddRangeAsync(IEnumerable<TEntity> entities) => await context.Set<TEntity>().AddRangeAsync(entities);
 

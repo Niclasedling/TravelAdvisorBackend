@@ -24,30 +24,20 @@ namespace TravelAdvisor.Infrastructure.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<UserCreateDto> Create(UserCreateDto newUser)
+        public async Task<Guid> Create(UserCreateDto newUser)
         {
-            var user = _mapper.Map<User>(newUser);
+           var user = _mapper.Map<User>(newUser);
 
+           var exists = await _unitOfWork.UserRepository.FindAsync(x=> x.Email == user.Email);
+           
+            if (exists == null)
 
-            var users = await _unitOfWork.UserRepository.GetAllAsync();
-
-            var isUserExists = users.FirstOrDefault(item => item.Email == newUser.Email);
-
-<<<<<<< HEAD
-            //retunera guid i create istället för objektet!!
-
-            if (newUser == null)
-=======
-            if (isUserExists == null)
->>>>>>> 879c58fc5df31b7d4669e9e9eb4fe6f1278653e2
             {
-                await _unitOfWork.UserRepository.AddAsync(user);
-
-                var newUserDto = _mapper.Map<UserCreateDto>(user);
+                user = await _unitOfWork.UserRepository.AddAsync(user);
 
                 await _unitOfWork.SaveChanges();
 
-                return newUserDto;
+                return user.Id;
             }
             else
             {
@@ -56,21 +46,7 @@ namespace TravelAdvisor.Infrastructure.Services
 
 
         }
-        public async Task<UserLoginDto> Login(UserLoginDto userLogin)
-        {
-            //var user = _mapper.Map<User>(userLogin);
-
-            var users = await _unitOfWork.UserRepository.GetAllAsync();
-            var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
-            UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
-
-            if (user == null)
-            {
-                throw new Exception("Wrong email or password");
-            }
-
-            return userLoginDto;
-        }
+    
 
         public async Task<bool> Delete(Guid id)
         {
@@ -95,20 +71,24 @@ namespace TravelAdvisor.Infrastructure.Services
                 var mappedUsers = _mapper.Map<List<UserDto>>(users);
                 return mappedUsers;
             }
-            return null; //Lägg till felmeddelande
+            return null; 
         }
 
-        public Task<UserDto> GetById(Guid id)
+        public async Task<UserDto> GetById(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await _unitOfWork.UserRepository.GetByGuidAsync(id);
+       
+            if (user != null)
+            {
+                var mappedUsers = _mapper.Map<UserDto>(user);
+                return mappedUsers;
+
+            }
+
+            return null;
         }
 
-        public Task<UserDto> GetList()
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<UserUpdateDto> Update(UserUpdateDto userUpdateDto)
+        public async Task<bool> Update(UserUpdateDto userUpdateDto)
         {   
             if (userUpdateDto == null) throw new ArgumentNullException(nameof(userUpdateDto));
 
@@ -118,7 +98,14 @@ namespace TravelAdvisor.Infrastructure.Services
             var updatedUser = _mapper.Map<UserUpdateDto>(user);
             await _unitOfWork.SaveChanges();
 
-            return updatedUser;
+            return true;
+
+            //------------------- testa denna metod
+        }
+
+        public Task<UserDto> GetList()
+        {
+            throw new NotImplementedException();
         }
 
 
@@ -140,24 +127,22 @@ namespace TravelAdvisor.Infrastructure.Services
             else return null; //Return felmeddelande
             
         }
-
-        public Task<UserUpdateDto> Update() //?? checka 
+        public async Task<UserLoginDto> Login(UserLoginDto userLogin)
         {
-            throw new NotImplementedException();
-        }
-<<<<<<< HEAD
+            //var user = _mapper.Map<User>(userLogin);
 
-        public Task<UserUpdateDto> Update()
-        {
-            throw new NotImplementedException();
+            var users = await _unitOfWork.UserRepository.GetAllAsync();
+            var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
+            UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
+
+            if (user == null)
+            {
+                throw new Exception("Wrong email or password");
+            }
+
+            return userLoginDto;
         }
 
-        //public void Add(User user)
-        //{
-        //    _db.Users.Add(user);
-        //    _db.SaveChanges();
-        //}
-=======
->>>>>>> 879c58fc5df31b7d4669e9e9eb4fe6f1278653e2
+      
     }
 }

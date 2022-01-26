@@ -18,10 +18,10 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<bool> Delete(Guid id);
 
-        Task<UserCreateDto> Create(UserCreateDto newUser);
+        Task<Guid> Create(UserCreateDto newUser);
         Task<UserLoginDto> Login(UserLoginDto userLogin);
 
-        Task<UserUpdateDto> Update();
+        Task<bool> Update(UserUpdateDto userUpdate);
 
 
 
