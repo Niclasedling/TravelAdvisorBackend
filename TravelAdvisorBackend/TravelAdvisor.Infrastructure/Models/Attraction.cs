@@ -23,7 +23,7 @@ namespace TravelAdvisor.Infrastructure.Models
 
         public string Details { get; set; }
 
-        public List<Rating> Ratings { get; set; }
+        //public List<Rating> Ratings { get; set; }
 
         //public List<Review> Reviews { get; set; }
 
@@ -65,13 +65,9 @@ namespace TravelAdvisor.Infrastructure.Models
 
         public string Details { get; set; }
 
-        public List<Rating> Ratings { get; set; }
+        //public List<Rating> Ratings { get; set; }
 
-        public List<Review> Reviews { get; set; }
+        //public List<Review> Reviews { get; set; }
 
-        public AttractionCreateDto()
-        {
-            Ratings = new List<Rating>(); // Titta vidare
-        }
     }
 }

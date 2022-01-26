@@ -13,7 +13,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
     {
         [Required]
         [StringLength(100)]
-        //[Column(TypeName = "NVARCHAR(100)")] 
         public string Name { get; set; }
 
         [Required]
@@ -35,11 +34,11 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         [StringLength(1000)]
         public string Details { get; set; }
 
-        [Required]
-        public List<Rating> Ratings { get; set; } 
+        //[Required]
+        //public List<Rating> Ratings { get; set; } 
 
-        [Required]
-        public List<Review> Reviews { get; set; }
+        //[Required]
+        //public List<Review> Reviews { get; set; }
 
     }
 }

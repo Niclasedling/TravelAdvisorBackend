@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace TravelAdvisor.Infrastructure.Migrations.Models
 {
-    public enum Rating
-    {
-        Unspecified,
-        VeryBad,
-        Bad,
-        Average,
-        VeryGood,
-        Excellent,
-    }
+    //public enum Rating
+    //{
+    //    Unspecified,
+    //    VeryBad,
+    //    Bad,
+    //    Average,
+    //    VeryGood,
+    //    Excellent,
+    //}
 
     public class Review: Entity
     {
@@ -30,13 +30,13 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         [Required]
         public DateTime Date { get; set; }
 
-        [Required]
-        public Rating Rating { get; set; }
+        //[Required]
+        //public Rating Rating { get; set; }
 
-        [Required]
-        public List<int> Likes { get; set; } // Titta vidare på
+        //[Required]
+        //public List<int> Likes { get; set; } // Titta vidare på
 
-        [Required]
-        public User User { get; set; }
+        //[Required]
+        //public User User { get; set; }
     }
 }
