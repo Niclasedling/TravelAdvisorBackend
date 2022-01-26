@@ -28,9 +28,11 @@ namespace TravelAdvisor.Infrastructure.Services
         {
            var user = _mapper.Map<User>(newUser);
 
-           var exists = await _unitOfWork.UserRepository.FindAsync(x=> x.Email == user.Email);
+           var users = await _unitOfWork.UserRepository.GetAllAsync();
+
+            var item = users.FirstOrDefault(x => x.Email == user.Email);
            
-            if (exists == null)
+            if (item == null)
 
             {
                 user = await _unitOfWork.UserRepository.AddAsync(user);
