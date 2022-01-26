@@ -7,12 +7,13 @@ using TravelAdvisor.Infrastructure.Services;
 
 namespace TravelAdvisor.Web.Controllers
 {
+
+    [ApiController]
+    [Route("[controller]")]
     public class AuthenticationController : Controller
     {
       
 
-        [ApiController]
-        [Route("[controller]")]
         public class Authentication : ControllerBase
         {
             private readonly ILogger<AuthenticationController> _logger;

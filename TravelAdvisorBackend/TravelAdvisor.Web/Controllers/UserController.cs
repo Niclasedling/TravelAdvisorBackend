@@ -34,7 +34,6 @@ namespace TravelAdvisor.Web.Controllers
         }
 
 
-
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {

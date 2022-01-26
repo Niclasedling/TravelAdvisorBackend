@@ -35,17 +35,7 @@ namespace TravelAdvisor.Web
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy(name: MyAllowSpecificOrigins,
-            //                      builder =>
-            //                      {
-            //                          builder.WithOrigins("http://example.com",
-            //                                              "http://www.contoso.com");
-            //                      });
-            //});
-            //app.UseCors(MyAllowSpecificOrigins);
+
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
@@ -56,6 +46,7 @@ namespace TravelAdvisor.Web
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
              services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAttractionService, AttractionService>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DbApplicationContext>(options => options.UseSqlServer(connection));

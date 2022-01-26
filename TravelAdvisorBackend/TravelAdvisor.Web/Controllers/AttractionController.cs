@@ -67,15 +67,15 @@ namespace TravelAdvisor.Web.Controllers
             return BadRequest($"{nameof(Delete)} returned false."); // Tillfällig - fixa sen
         }
 
-        [HttpPost("Create")]
-        public async Task<IActionResult> Create(AttractionCreateDto newAttraction)
-        {
-            var item = await _attractionService.Create(newAttraction);
+        //[HttpPost("Create")]
+        //public async Task<IActionResult> Create(AttractionCreateDto newAttraction)
+        //{
+        //    var item = await _attractionService.Create(newAttraction);
 
-            return Ok(item);
+        //    return Ok(item);
 
-            /*return BadRequest($"{nameof(Create)} returned null.");*/ // Tillfällig - fixa sen
-        }
+        //    /*return BadRequest($"{nameof(Create)} returned null.");*/ // Tillfällig - fixa sen
+        //}
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(AttractionUpdateDto updateAttraction)
