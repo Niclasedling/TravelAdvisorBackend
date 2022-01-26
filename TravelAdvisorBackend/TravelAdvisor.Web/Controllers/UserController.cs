@@ -85,9 +85,9 @@ namespace TravelAdvisor.Web.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update()
+        public async Task<IActionResult> Update(UserUpdateDto userUpdate)
         {
-            var item = await _userService.Update();
+            var item = await _userService.Update(userUpdate);
             return Ok(item);
         }
 
