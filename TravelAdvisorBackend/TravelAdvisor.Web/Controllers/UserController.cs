@@ -84,12 +84,12 @@ namespace TravelAdvisor.Web.Controllers
             return Ok(item);
         }
 
-        [HttpPut("Update")]
-        public async Task<IActionResult> Update()
-        {
-            var item = await _userService.Update();
-            return Ok(item);
-        }
+        //[HttpPut("Update")]
+        //public async Task<IActionResult> Update()
+        //{
+        //    var item = await _userService.Update();
+        //    return Ok(item);
+        //}
 
         [NonAction]
         private async Task Authenticate(string email)
