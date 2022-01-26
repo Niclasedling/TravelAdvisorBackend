@@ -34,7 +34,6 @@ namespace TravelAdvisor.Web.Controllers
         }
 
 
-
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {
@@ -84,12 +83,14 @@ namespace TravelAdvisor.Web.Controllers
             return Ok(item);
         }
 
-        //[HttpPut("Update")]
-        //public async Task<IActionResult> Update()
-        //{
-        //    var item = await _userService.Update();
-        //    return Ok(item);
-        //}
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(UserUpdateDto userUpdate)
+        {
+            var item = await _userService.Update(userUpdate);
+            return Ok(item);
+        }
+
 
         [NonAction]
         private async Task Authenticate(string email)
