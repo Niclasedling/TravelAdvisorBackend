@@ -14,7 +14,10 @@ namespace TravelAdvisor.Infrastructure.Interfaces
         Repository<User> UserRepository
         {
             get;
-
+        }
+        Repository<Attraction> AttractionRepository
+        {
+            get;
         }
     }
 }

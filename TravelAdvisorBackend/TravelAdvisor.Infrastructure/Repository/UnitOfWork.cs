@@ -20,6 +20,7 @@ namespace TravelAdvisor.Infrastructure.Repository
         private readonly DbApplicationContext context;
 
         private Repository<User> userRepository;
+        private Repository<Attraction> attractionRepository;
 
 
         Repository<User> IUnitOfWork.UserRepository
@@ -31,8 +32,18 @@ namespace TravelAdvisor.Infrastructure.Repository
                     this.userRepository = new Repository<User>(context);
                 }
                 return userRepository;
+            }
+        }
 
-
+        Repository<Attraction> IUnitOfWork.AttractionRepository
+        {
+            get
+            {
+                if (this.attractionRepository == null)
+                {
+                    this.attractionRepository = new Repository<Attraction>(context);
+                }
+                return attractionRepository;
             }
         }
 

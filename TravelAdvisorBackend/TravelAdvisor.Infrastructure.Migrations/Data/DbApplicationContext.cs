@@ -16,6 +16,7 @@ public class DbApplicationContext: DbContext
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Attraction> Attractions { get; set; }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
