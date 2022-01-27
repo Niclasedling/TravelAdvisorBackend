@@ -37,14 +37,14 @@ namespace TravelAdvisor.Web.Controllers
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var item = await _userService.GetById(id);
+            var item = await _userService.GetUser(id);
             return Ok(item);
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var item = await _userService.GetAll();
+            var item = await _userService.GetAllUsers();
             if(item == null)
             {
                 return BadRequest("Item is null");
@@ -63,14 +63,14 @@ namespace TravelAdvisor.Web.Controllers
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var item = await _userService.Delete(id);
+            var item = await _userService.DeleteUser(id);
             return Ok(item);
         }
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create(UserCreateDto newUser)
         {
-            var item = await _userService.Create(newUser);
+            var item = await _userService.CreateUser(newUser);
             return Ok(item);
         }
 
@@ -87,7 +87,7 @@ namespace TravelAdvisor.Web.Controllers
         [HttpPut("Update")]
         public async Task<IActionResult> Update(UserUpdateDto userUpdate)
         {
-            var item = await _userService.Update(userUpdate);
+            var item = await _userService.UpdateUser(userUpdate);
             return Ok(item);
         }
 

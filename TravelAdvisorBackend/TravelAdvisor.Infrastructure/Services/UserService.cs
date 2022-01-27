@@ -24,13 +24,14 @@ namespace TravelAdvisor.Infrastructure.Services
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<Guid> Create(UserCreateDto newUser)
-        {
+        public async Task<Guid> CreateUser(UserCreateDto newUser)
+        {   
+           
            var user = _mapper.Map<User>(newUser);
 
            var users = await _unitOfWork.UserRepository.GetAllAsync();
-
-            var item = users.FirstOrDefault(x => x.Email == user.Email);
+           
+           var item = users.FirstOrDefault(x => x.Email == user.Email);
            
             if (item == null)
 
@@ -50,7 +51,7 @@ namespace TravelAdvisor.Infrastructure.Services
         }
     
 
-        public async Task<bool> Delete(Guid id)
+        public async Task<bool> DeleteUser(Guid id)
         {
             var user = await _unitOfWork.UserRepository.GetByGuidAsync(id);
             bool correct = false;
@@ -65,7 +66,7 @@ namespace TravelAdvisor.Infrastructure.Services
             return correct;
         }
 
-        public async Task<List<UserDto>> GetAll()
+        public async Task<List<UserDto>> GetAllUsers()
         {
             var users = await _unitOfWork.UserRepository.GetAllAsync();
             if(users != null)
@@ -76,7 +77,7 @@ namespace TravelAdvisor.Infrastructure.Services
             return null; 
         }
 
-        public async Task<UserDto> GetById(Guid id)
+        public async Task<UserDto> GetUser(Guid id)
         {
             var user = await _unitOfWork.UserRepository.GetByGuidAsync(id);
        
@@ -90,7 +91,7 @@ namespace TravelAdvisor.Infrastructure.Services
             return null;
         }
 
-        public async Task<bool> Update(UserUpdateDto userUpdateDto)
+        public async Task<bool> UpdateUser(UserUpdateDto userUpdateDto)
         {   
             if (userUpdateDto == null) throw new ArgumentNullException(nameof(userUpdateDto));
 
