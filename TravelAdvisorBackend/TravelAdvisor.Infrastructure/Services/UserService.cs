@@ -130,7 +130,7 @@ namespace TravelAdvisor.Infrastructure.Services
             else return null; //Return felmeddelande
             
         }
-        public async Task<UserLoginDto> Login(UserLoginDto userLogin)
+        public async Task<bool> Login(UserLoginDto userLogin)
         {
             //var user = _mapper.Map<User>(userLogin);
 
@@ -143,7 +143,7 @@ namespace TravelAdvisor.Infrastructure.Services
                 throw new Exception("Wrong email or password");
             }
 
-            return userLoginDto;
+            return true;
         }
 
       
