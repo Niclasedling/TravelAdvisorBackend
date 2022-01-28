@@ -136,7 +136,7 @@ namespace TravelAdvisor.Infrastructure.Services
 
             var users = await _unitOfWork.UserRepository.GetAllAsync();
             var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
-            UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
+            //UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
 
             if (user == null)
             {

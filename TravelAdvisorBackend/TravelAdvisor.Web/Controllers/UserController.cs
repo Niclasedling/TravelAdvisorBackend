@@ -78,7 +78,8 @@ namespace TravelAdvisor.Web.Controllers
         public async Task<IActionResult> Login(UserLoginDto userLogin)
         {
             var item = await _userService.Login(userLogin);
-            await Authenticate(item.Email);
+            if(item) await Authenticate(userLogin.Email);
+
 
             return Ok(item);
         }
