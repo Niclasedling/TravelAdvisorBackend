@@ -132,15 +132,14 @@ namespace TravelAdvisor.Infrastructure.Services
         }
         public async Task<bool> Login(UserLoginDto userLogin)
         {
-            //var user = _mapper.Map<User>(userLogin);
-
+            
             var users = await _unitOfWork.UserRepository.GetAllAsync();
             var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
-            //UserLoginDto userLoginDto = new UserLoginDto() { Email = user.Email, Password = user.Password };
+           
 
             if (user == null)
             {
-                throw new Exception("Wrong email or password");
+                return false;
             }
 
             return true;
