@@ -39,7 +39,7 @@ namespace TravelAdvisor.Infrastructure.Repository
 
         public async Task<TEntity> GetByGuidAsync(Guid id) => await context.Set<TEntity>().FindAsync(id);
 
-        public async Task<IEnumerable<TEntity>> GetAllAsync() => await Task.Run(() => { return context.Set<TEntity>().ToList(); });
+        public async Task<IEnumerable<TEntity>> GetAllAsync() => await Task.Run(() => {  return context.Set<TEntity>().ToList(); });
 
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate) => await Task.Run(() => { return context.Set<TEntity>().Where(predicate); });
 

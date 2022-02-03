@@ -32,11 +32,16 @@ namespace TravelAdvisor.Infrastructure.Services
            var users = await _unitOfWork.UserRepository.GetAllAsync();
            
            var item = users.FirstOrDefault(x => x.Email == user.Email);
-           
+
+
             if (item == null)
 
             {
+
+                user.Password = Cryptography.EncryptData(newUser.Password);
+
                 user = await _unitOfWork.UserRepository.AddAsync(user);
+
 
                 await _unitOfWork.SaveChanges();
 
@@ -132,9 +137,10 @@ namespace TravelAdvisor.Infrastructure.Services
         }
         public async Task<bool> Login(UserLoginDto userLogin)
         {
+
             
             var users = await _unitOfWork.UserRepository.GetAllAsync();
-            var user = users.FirstOrDefault(item => item.Email == userLogin.Email && item.Password == userLogin.Password);
+            var user = users.FirstOrDefault(database => database.Email == userLogin.Email && database.Password == Cryptography.EncryptData(userLogin.Password));
            
 
             if (user == null)
