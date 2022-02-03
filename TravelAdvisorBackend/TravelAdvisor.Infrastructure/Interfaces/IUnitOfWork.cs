@@ -19,5 +19,9 @@ namespace TravelAdvisor.Infrastructure.Interfaces
         {
             get;
         }
+        Repository<Review> ReviewRepository
+        {
+            get;
+        }
     }
 }

@@ -56,8 +56,10 @@ namespace TravelAdvisor.Web
 
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IForecast, ForecastService>(); 
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAttractionService, AttractionService>();
+            services.AddScoped<IReviewService, ReviewService>();
+            services.AddScoped<IForecast, ForecastService>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DbApplicationContext>(options => options.UseSqlServer(connection));

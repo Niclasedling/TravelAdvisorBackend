@@ -1,23 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TravelAdvisor.Infrastructure.Migrations.Models
 {
-    //public enum Rating
-    //{
-    //    Unspecified,
-    //    VeryBad,
-    //    Bad,
-    //    Average,
-    //    VeryGood,
-    //    Excellent,
-    //}
+    public enum Rating
+    {
+        Unspecified,
+        VeryBad,
+        Bad,
+        Average,
+        VeryGood,
+        Excellent,
+    } // Egen tabell Virtual ICollection
 
-    public class Review: Entity
+    public class Review : Entity
     {
         [Required]
         [StringLength(30)]
@@ -30,13 +31,14 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         [Required]
         public DateTime Date { get; set; }
 
-        //[Required]
-        //public Rating Rating { get; set; }
+        [Required]
+        public Rating Rating { get; set; }
 
-        //[Required]
-        //public List<int> Likes { get; set; } // Titta vidare på
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
 
-        //[Required]
-        //public User User { get; set; }
+        [ForeignKey("AttractionId")]
+        public virtual Attraction Attraction { get; set; }
+
     }
 }

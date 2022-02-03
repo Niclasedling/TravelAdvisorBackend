@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -30,10 +32,7 @@ namespace TravelAdvisor.Infrastructure.Repository
 
         public async Task RemoveAsync(TEntity entity) => await Task.Run(() => { context.Set<TEntity>().Remove(entity); });
 
-
         public async Task UpdateAsync(TEntity entity) => await Task.Run(() => { context.Set<TEntity>().Update(entity); });
-
-
 
         public async Task RemoveRangeAsync(IEnumerable<TEntity> entities) => await Task.Run(() => { context.Set<TEntity>().RemoveRange(entities); });
 
@@ -43,6 +42,22 @@ namespace TravelAdvisor.Infrastructure.Repository
 
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate) => await Task.Run(() => { return context.Set<TEntity>().Where(predicate); });
 
+        public virtual async Task<IList<TResult>> ListAsync<TResult>(Expression<Func<TEntity, TResult>> selector,
+                                              Expression<Func<TEntity, bool>> predicate = null,
+                                              Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+                                              Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null,
+                                              bool disableTracking = true, int? skip = null, int? take = null)
+        {
+            IQueryable<TEntity> query = context.Set<TEntity>();
+            if (disableTracking) { query = query.AsNoTracking(); }
+            if (include != null) { query = include(query); }
+            if (predicate != null) { query = query.Where(predicate); }
+            if (orderBy != null) { query = orderBy(query); }
+            if (skip != null) { query = query.Skip(skip.Value); }
+            if (take != null) { query = query.Take(take.Value); }
+
+            return await query.Select(selector).ToListAsync();
+        }
 
     }
 }

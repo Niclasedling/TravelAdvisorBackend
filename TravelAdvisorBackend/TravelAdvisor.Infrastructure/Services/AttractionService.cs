@@ -19,6 +19,7 @@ namespace TravelAdvisor.Infrastructure.Services
         {
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            
         }
 
         public async Task<Guid> Create(AttractionCreateDto newAttraction)
@@ -75,6 +76,7 @@ namespace TravelAdvisor.Infrastructure.Services
         public async Task<List<AttractionDto>> GetList()
         {
             var attractions = await _unitOfWork.AttractionRepository.GetAllAsync();
+            var reviews = await _unitOfWork.ReviewRepository.GetAllAsync();
 
             if (attractions != null)
             {
@@ -92,11 +94,8 @@ namespace TravelAdvisor.Infrastructure.Services
 
             await _unitOfWork.SaveChanges();
 
-            var dbAttraction = _mapper.Map<AttractionUpdateDto>(await _unitOfWork.AttractionRepository.GetByGuidAsync(updateAttraction.Id));
-            
-            if (dbAttraction == updateAttraction) return true;
+            return true;
 
-            else return false;
         }
     }
 }
