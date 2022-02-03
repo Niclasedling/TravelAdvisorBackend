@@ -96,12 +96,12 @@ namespace TravelAdvisor.Web.Controllers
         [NonAction]
         private async Task Authenticate(string email)
         {
-            // создаем один claim
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, email)
             };
-            // создаем объект ClaimsIdentity
+
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));

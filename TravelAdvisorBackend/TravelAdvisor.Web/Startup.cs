@@ -47,6 +47,7 @@ namespace TravelAdvisor.Web
             //});
             //app.UseCors(MyAllowSpecificOrigins);
 
+           
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions
                 {
@@ -56,6 +57,7 @@ namespace TravelAdvisor.Web
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
              services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IForecast, ForecastService>(); 
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DbApplicationContext>(options => options.UseSqlServer(connection));
@@ -85,6 +87,8 @@ namespace TravelAdvisor.Web
             }
 
             //app.UseHttpsRedirection();
+
+   
 
             app.UseRouting();
 
