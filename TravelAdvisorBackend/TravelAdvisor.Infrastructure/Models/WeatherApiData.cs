@@ -76,6 +76,9 @@ namespace TravelAdvisor.Infrastructure.Models
     {
       
         public Main main { get; set; }
+        public List list { get; set; }
+        public Wind wind { get; set;  }
+        
      
     }
 }

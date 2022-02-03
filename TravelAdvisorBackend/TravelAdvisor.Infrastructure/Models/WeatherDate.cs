@@ -10,7 +10,9 @@ namespace TravelAdvisor.Infrastructure.Models
     {
         public double Temperature { get; set; }
         public string DateOftemperature { get; set; }
+        public int CurrentHumdity { get; set; }
+        public double WindSpeed { get; set; }
 
-     
+
     }
 }

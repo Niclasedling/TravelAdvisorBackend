@@ -15,7 +15,7 @@ namespace TravelAdvisor.Infrastructure.Services
         public async Task<CurrentWeateher> GetCurrentWateherByCityName(string cityName)
         {
             HttpClient httpClient = new HttpClient();
-            //const int hourNumber = 18;
+            
 
             string path = $"https://api.openweathermap.org/data/2.5/weather?q={cityName}&units=metric&lang=uk&appid=6f1369d9886064a1ff9c1b784a4c93cb";
         
@@ -26,11 +26,14 @@ namespace TravelAdvisor.Infrastructure.Services
             CurrentWeatherApiData currentWeatherResult = JsonConvert.DeserializeObject<CurrentWeatherApiData>(stringResult);
             CurrentWeateher myForecast = new CurrentWeateher();
 
-            myForecast.Temperature = currentWeatherResult.main.temp;
-            
-            
-            return myForecast;
+            myForecast.Temperature = Math.Round(currentWeatherResult.main.temp);
+            myForecast.CurrentHumdity = currentWeatherResult.main.humidity;
+            myForecast.WindSpeed = currentWeatherResult.wind.speed; 
 
+            
+            
+    
+            return myForecast;
         }
 
         public async Task<List<WeatherDate>> GetWateherByCityName(string cityName)
@@ -52,16 +55,16 @@ namespace TravelAdvisor.Infrastructure.Services
                     myForecastList.Add(new WeatherDate
                     {
                         Temperature = Math.Round(item.main.temp),
-                        //Temperature = item.main.temp,
-                        DateOftemperature = item.dt_txt
+                        DateOftemperature = item.dt_txt,
+                        CurrentHumdity= item.main.humidity,
+                        WindSpeed = item.wind.speed    
+                        
                     }
                     );
                 }
 
             }
             return myForecastList;
-
-
         }
     }
 }
