@@ -32,15 +32,15 @@ namespace TravelAdvisor.Web.Controllers
 
         }
 
-        [HttpPost("GetCurrentWeatherByCity")]
-        public async Task<IActionResult> GetCurrentWeatherByCity(string cityName)
-        {
+        //[HttpPost("GetCurrentWeatherByCity")]
+        //public async Task<IActionResult> GetCurrentWeatherByCity(string cityName)
+        //{
 
-            var item = await _forecast.GetCurrentWateherByCityName(cityName); 
+        //    var item = await _forecast.GetCurrentWateherByCityName(cityName); 
 
-            return Ok(item);
+        //    return Ok(item);
 
-        }
+        //}
 
     }
 }

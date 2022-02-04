@@ -9,9 +9,11 @@ namespace TravelAdvisor.Infrastructure.Models
     public class WeatherDate
     {
         public double Temperature { get; set; }
-        public string DateOftemperature { get; set; }
-        public int CurrentHumdity { get; set; }
+        public string DateofForecast { get; set; }
+        public int Humidity { get; set; }
         public double WindSpeed { get; set; }
+        public string Icon { get; set; }
+
 
 
     }

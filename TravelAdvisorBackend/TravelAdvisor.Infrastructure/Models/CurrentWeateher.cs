@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TravelAdvisor.Infrastructure.Models
 {
-    public class CurrentWeateher
-    {
-        public double Temperature { get; set; }
-        public int CurrentHumdity { get; set; }
-        public string CurrentDate { get; set; }
-        public double WindSpeed { get; set; }   
+    //public class CurrentWeateher : WeatherDate
+    //{
+    //    //public double Temperature { get; set; }
+    //    //public int CurrentHumdity { get; set; }
+    //    //public string CurrentDate { get; set; }
+    //    //public double WindSpeed { get; set; }   
 
 
-    }
+    //}
 }
