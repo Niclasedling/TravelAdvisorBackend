@@ -50,6 +50,7 @@ namespace TravelAdvisor.Infrastructure.Models
         public Rain rain { get; set; }
         public Sys sys { get; set; }
         public string dt_txt { get; set; }
+        public Weather weatherT { get; set; }
     }
     public class Coord
     {
@@ -78,7 +79,8 @@ namespace TravelAdvisor.Infrastructure.Models
         public Main main { get; set; }
         public List list { get; set; }
         public Wind wind { get; set;  }
-        
-     
+
+
+
     }
 }

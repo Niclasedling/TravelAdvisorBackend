@@ -10,7 +10,7 @@ namespace TravelAdvisor.Infrastructure.Interfaces
     public interface IForecast
     {
          Task<List<WeatherDate>> GetWateherByCityName(string cityName);  
-         //Task<CurrentWeateher> GetCurrentWateherByCityName(string cityName);  
+   
         
     }
 }

@@ -10,7 +10,7 @@ using TravelAdvisor.Infrastructure.Models;
 
 namespace TravelAdvisor.Web.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class ForecastController : ControllerBase
     {
@@ -22,8 +22,8 @@ namespace TravelAdvisor.Web.Controllers
         }
 
 
-        [HttpPost("GetAllWeatherByCity")]
-        public async Task<IActionResult> GetAllWeatherByCity(string cityName)
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll(string cityName)
         {
 
             var item = await _forecast.GetWateherByCityName(cityName);
@@ -32,15 +32,7 @@ namespace TravelAdvisor.Web.Controllers
 
         }
 
-        //[HttpPost("GetCurrentWeatherByCity")]
-        //public async Task<IActionResult> GetCurrentWeatherByCity(string cityName)
-        //{
-
-        //    var item = await _forecast.GetCurrentWateherByCityName(cityName); 
-
-        //    return Ok(item);
-
-        //}
+      
 
     }
 }
