@@ -59,7 +59,7 @@ namespace TravelAdvisor.Web
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAttractionService, AttractionService>();
             services.AddScoped<IReviewService, ReviewService>();
-            services.AddScoped<IForecast, ForecastService>();
+            services.AddScoped<IOpenWeatherService, OpenWeatherService>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DbApplicationContext>(options => options.UseSqlServer(connection));

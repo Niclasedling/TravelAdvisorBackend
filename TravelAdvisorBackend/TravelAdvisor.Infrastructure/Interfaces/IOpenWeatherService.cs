@@ -7,10 +7,11 @@ using TravelAdvisor.Infrastructure.Models;
 
 namespace TravelAdvisor.Infrastructure.Interfaces
 {
-    public interface IForecast
+    public interface IOpenWeatherService
     {
-         Task<List<WeatherDate>> GetWateherByCityName(string cityName);  
-   
-        
+        Task<Forecast> GetForecastAsync(string cityName);
+
+
+
     }
 }

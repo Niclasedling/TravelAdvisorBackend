@@ -14,9 +14,9 @@ namespace TravelAdvisor.Web.Controllers
     [ApiController]
     public class ForecastController : ControllerBase
     {
-        private readonly IForecast _forecast;
+        private readonly IOpenWeatherService _forecast;
 
-        public ForecastController(IForecast forecast)
+        public ForecastController(IOpenWeatherService forecast)
         {
             _forecast = forecast;
         }
@@ -26,7 +26,7 @@ namespace TravelAdvisor.Web.Controllers
         public async Task<IActionResult> GetAll(string cityName)
         {
 
-            var item = await _forecast.GetWateherByCityName(cityName);
+            var item = await _forecast.GetForecastAsync(cityName);
 
             return Ok(item);
 
