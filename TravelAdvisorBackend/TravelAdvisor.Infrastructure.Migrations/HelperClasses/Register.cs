@@ -22,7 +22,7 @@ namespace TravelAdvisor.Infrastructure.Migrations.HelperClasses
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "Passwrod is not matching")]
+        [Compare("Password", ErrorMessage = "Password is not matching")]
         public string ConfirmPassword { get; set; }
     }
 }

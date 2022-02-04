@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace TravelAdvisor.Infrastructure.Migrations.Models
 {
 
-    public class Attraction: Entity
+    public class Attraction: Location
     {
         [Required]
         [StringLength(100)]
@@ -20,14 +20,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         public string Image { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string Adress { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Location { get; set; }
-
-        [Required]
         public int? Price { get; set; }
 
         [Required]
@@ -35,10 +27,13 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         public string Details { get; set; }
 
         //[Required]
-        //public List<Rating> Ratings { get; set; } 
+        //[StringLength(100)]
+        //public string Adress { get; set; }
 
         //[Required]
-        //public List<Review> Reviews { get; set; }
+        //[StringLength(100)]
+        //public (double Latitude, double Longitude) Location { get; set; }
+
 
     }
 }

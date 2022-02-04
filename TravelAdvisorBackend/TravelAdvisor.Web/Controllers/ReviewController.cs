@@ -9,21 +9,21 @@ namespace TravelAdvisor.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AttractionController : Controller
+    public class ReviewController : Controller
     {
         private readonly ILogger<AttractionController> _logger;
-        public readonly IAttractionService _attractionService;
+        public readonly IReviewService _reviewService;
 
-        public AttractionController(IAttractionService attractionService, ILogger<AttractionController> logger)
+        public ReviewController(IReviewService reviewService, ILogger<AttractionController> logger)
         {
-            _attractionService = attractionService ?? throw new ArgumentNullException(nameof(attractionService));
+            _reviewService = reviewService ?? throw new ArgumentNullException(nameof(reviewService));
             _logger = logger;
         }
 
         [HttpGet("GetById")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var item = await _attractionService.GetById(id);
+            var item = await _reviewService.GetById(id);
             if (item != null)
             {
                 return Ok(item);
@@ -35,7 +35,7 @@ namespace TravelAdvisor.Web.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var item = await _attractionService.GetAll();
+            var item = await _reviewService.GetAll();
             if (item != null)
             {
                 return Ok(item);
@@ -47,7 +47,7 @@ namespace TravelAdvisor.Web.Controllers
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
-            var item = await _attractionService.GetList();
+            var item = await _reviewService.GetList();
             if (item != null)
             {
                 return Ok(item);
@@ -59,7 +59,7 @@ namespace TravelAdvisor.Web.Controllers
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            if (await _attractionService.Delete(id))
+            if (await _reviewService.Delete(id))
             {
                 return Ok();
             }
@@ -68,9 +68,9 @@ namespace TravelAdvisor.Web.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(AttractionCreateDto newAttraction)
+        public async Task<IActionResult> Create(ReviewCreateDto newReview)
         {
-            var item = await _attractionService.Create(newAttraction);
+            var item = await _reviewService.Create(newReview);
 
             return Ok(item);
 
@@ -78,9 +78,9 @@ namespace TravelAdvisor.Web.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(AttractionUpdateDto updateAttraction)
+        public async Task<IActionResult> Update(ReviewUpdateDto updateReview)
         {
-            var success = await _attractionService.Update(updateAttraction);
+            var success = await _reviewService.Update(updateReview);
 
             if (success)
             {

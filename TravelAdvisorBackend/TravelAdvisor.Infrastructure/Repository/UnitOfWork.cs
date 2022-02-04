@@ -21,7 +21,7 @@ namespace TravelAdvisor.Infrastructure.Repository
 
         private Repository<User> userRepository;
         private Repository<Attraction> attractionRepository;
-
+        private Repository<Review> reviewRepository;
 
         Repository<User> IUnitOfWork.UserRepository
         {
@@ -47,7 +47,17 @@ namespace TravelAdvisor.Infrastructure.Repository
             }
         }
 
-
+        Repository<Review> IUnitOfWork.ReviewRepository
+        {
+            get
+            {
+                if (this.reviewRepository == null)
+                {
+                    this.reviewRepository = new Repository<Review>(context);
+                }
+                return reviewRepository;
+            }
+        }
 
         public Task<int> SaveChanges()
         {

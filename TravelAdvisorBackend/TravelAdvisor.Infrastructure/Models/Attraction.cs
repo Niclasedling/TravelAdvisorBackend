@@ -10,22 +10,14 @@ namespace TravelAdvisor.Infrastructure.Models
     public abstract class AttractionBase
     {
         public Guid Id { get; set; }
-
         public string Name { get; set; }
-
         public string Image { get; set; }
-
-        public string Adress { get; set; }
-
-        public string Location { get; set; }
-
+        public string Address { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public int? Price { get; set; }
-
         public string Details { get; set; }
-
-        //public List<Rating> Ratings { get; set; }
-
-        //public List<Review> Reviews { get; set; }
+        public List<ReviewDto> Reviews { get; set; }
 
     }
 
@@ -34,12 +26,26 @@ namespace TravelAdvisor.Infrastructure.Models
 
     }
 
-    public class AttractionUpdateDto : AttractionBase
+    public class AttractionUpdateDto 
     {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public string Address { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public int? Price { get; set; }
+        public string Details { get; set; }
+        public List<ReviewDto> Reviews { get; set; }
 
     }
 
     public class AttractionDeleteDto
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class AttractionAddReviewDto
     {
         public Guid Id { get; set; }
     }
@@ -52,22 +58,14 @@ namespace TravelAdvisor.Infrastructure.Models
     public class AttractionCreateDto
     {
         public Guid Id { get; set; }
-
         public string Name { get; set; }
-
         public string Image { get; set; }
-
-        public string Adress { get; set; }
-
-        public string Location { get; set; }
-
+        public string Address { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
         public int? Price { get; set; }
-
         public string Details { get; set; }
-
-        //public List<Rating> Ratings { get; set; }
-
-        //public List<Review> Reviews { get; set; }
+        public List<ReviewDto> Reviews { get; set; } // New list?
 
     }
 }
