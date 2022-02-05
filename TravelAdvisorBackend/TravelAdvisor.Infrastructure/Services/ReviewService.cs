@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,19 +87,21 @@ namespace TravelAdvisor.Infrastructure.Services
 
         public async Task<List<ReviewDto>> GetList()
         {
-            //var reviews = await _unitOfWork.ReviewRepository.ListAsync(
-            //    selector: x => x,
-            //    predicate: true,
-            //    include: i => i.Include(x => x.Attraction),
-            //    include: i => i.Include(x => x.User)
-            //    .OrderBy(x => x.Rating));
 
 
+            var reviews = await _unitOfWork.ReviewRepository.ListAsync(
+                x => x,
+               include: i => i
+              .Include(x => x.User)
+              .Include(x => x.Attraction)
+ 
+               ); 
 
-            //if (reviews != null)
-            //{
-            //    return _mapper.Map<List<ReviewDto>>(reviews);
-            //}
+
+            if (reviews != null)
+            {
+                return _mapper.Map<List<ReviewDto>>(reviews);
+            }
 
             return null; //Lägg till felmeddelande
     
