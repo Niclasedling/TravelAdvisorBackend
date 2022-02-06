@@ -27,6 +27,11 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data
             //modelBuilder.ApplyConfiguration(new ReviewConfiguration()); // ??
             modelBuilder.SeedUsers();
             modelBuilder.SeedAttraction();
+
+
+            // felsök error = Object reference not set to an instance of an object.
+            //modelBuilder.SeedReview();
+
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

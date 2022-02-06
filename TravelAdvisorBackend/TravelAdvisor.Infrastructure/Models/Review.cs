@@ -27,7 +27,7 @@ namespace TravelAdvisor.Infrastructure.Models
 
         public Rating Rating { get; set; }
 
-        public AttractionDto attractionDto { get; set; }    
+        public AttractionDto Attraction { get; set; }    
 
         public UserDto User { get; set; }
 

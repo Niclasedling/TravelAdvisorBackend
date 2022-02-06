@@ -28,5 +28,14 @@ namespace TravelAdvisor.Infrastructure.Migrations.Enum
             {"ROME",       Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e")},
 
         };
+        public static IDictionary<string, Guid> review = new Dictionary<string, Guid> {
+            {"REVIEWGUID1",       Guid.Parse("94c0462b-bcaf-4dac-852c-fa254e4c0045")},
+            {"REVIEWGUID2",       Guid.Parse("fc7e794e-00cc-4896-b361-e98c36c5ea72")},
+            {"REVIEWGUID3",       Guid.Parse("36985fbd-ed1e-4cd6-82bf-ea7ae2b9dfa3")},
+            {"REVIEWGUID4",       Guid.Parse("265dca9d-6224-41f7-8a82-464692528928")},
+            {"REVIEWGUID5",       Guid.Parse("3d1885e7-25e5-4d7c-8112-f9c763b3d831")},
+            {"REVIEWGUID6",       Guid.Parse("df4550e0-68ed-400f-b721-c893b14e2cef")},
+
+        };
     }
 }

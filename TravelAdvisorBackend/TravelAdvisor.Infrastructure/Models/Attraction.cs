@@ -17,7 +17,7 @@ namespace TravelAdvisor.Infrastructure.Models
         public double Longitude { get; set; }
         public int? Price { get; set; }
         public string Details { get; set; }
-        public List<ReviewDto> Reviews { get; set; }
+  
 
     }
 
@@ -36,7 +36,6 @@ namespace TravelAdvisor.Infrastructure.Models
         public double Longitude { get; set; }
         public int? Price { get; set; }
         public string Details { get; set; }
-        public List<ReviewDto> Reviews { get; set; }
 
     }
 
@@ -65,7 +64,6 @@ namespace TravelAdvisor.Infrastructure.Models
         public double Longitude { get; set; }
         public int? Price { get; set; }
         public string Details { get; set; }
-        public List<ReviewDto> Reviews { get; set; } // New list?
 
     }
 }

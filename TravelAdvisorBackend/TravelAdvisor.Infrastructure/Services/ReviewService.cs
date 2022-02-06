@@ -88,7 +88,6 @@ namespace TravelAdvisor.Infrastructure.Services
         public async Task<List<ReviewDto>> GetList()
         {
 
-
             var reviews = await _unitOfWork.ReviewRepository.ListAsync(
                 x => x,
                include: i => i
@@ -100,7 +99,8 @@ namespace TravelAdvisor.Infrastructure.Services
 
             if (reviews != null)
             {
-                return _mapper.Map<List<ReviewDto>>(reviews);
+                var map =  _mapper.Map<List<ReviewDto>>(reviews);
+                return map;
             }
 
             return null; //Lägg till felmeddelande
