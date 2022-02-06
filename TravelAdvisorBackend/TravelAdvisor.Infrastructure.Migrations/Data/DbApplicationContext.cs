@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TravelAdvisor.Infrastructure.Migrations.Data.Configurations;
+using TravelAdvisor.Infrastructure.Migrations.Data.Seeding;
 using TravelAdvisor.Infrastructure.Migrations.Models;
 
 namespace TravelAdvisor.Infrastructure.Migrations.Data
@@ -24,6 +25,8 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data
         {
             //modelBuilder.ApplyConfiguration(new AttractionConfiguration()); // ??
             //modelBuilder.ApplyConfiguration(new ReviewConfiguration()); // ??
+            modelBuilder.SeedUsers();
+            modelBuilder.SeedAttraction();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

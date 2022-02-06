@@ -13,18 +13,18 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Attraction> builder)
         {
-            builder.HasKey(x => x.Id);
+            //builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.Image).IsRequired().HasMaxLength(250);
-            builder.Property(x => x.Address).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.Price).IsRequired(false).HasMaxLength(50);
+            //builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
+            //builder.Property(x => x.Image).IsRequired().HasMaxLength(250);
+            //builder.Property(x => x.Address).IsRequired().HasMaxLength(100);
+            //builder.Property(x => x.Price).IsRequired(false).HasMaxLength(50);
             //builder.Property(x => x.Location).IsRequired().HasMaxLength(100);
-            builder.Property(x => x.Details).IsRequired(false).HasMaxLength(1200);
+            //builder.Property(x => x.Details).IsRequired(false).HasMaxLength(1200);
 
             //builder.HasMany(x => x.Reviews).WithOne(x => x.Attraction); //.HasForeignKey(x => x.Attraction.Id); ???
 
-            builder.ToTable("Attractions");
+            //builder.ToTable("Attractions");
         }
     }
 }

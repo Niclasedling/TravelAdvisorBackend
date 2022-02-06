@@ -10,8 +10,8 @@ using TravelAdvisor.Infrastructure.Migrations.Data;
 namespace TravelAdvisor.Infrastructure.Migrations.Migrations
 {
     [DbContext(typeof(DbApplicationContext))]
-    [Migration("20220203110509_update-attraction")]
-    partial class updateattraction
+    [Migration("20220206120945_UptDatabase")]
+    partial class UptDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,35 +27,23 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Details")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<double>("Latitude")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Longitude")
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Modified")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Price")
                         .IsRequired()
@@ -72,7 +60,7 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AttractionId")
+                    b.Property<Guid?>("AttractionId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
@@ -140,15 +128,85 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("6d157d49-58ca-4760-9fe1-7917fb8189da"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Pontus.Bjornfot@outlook.com",
+                            FirstName = "Pontus",
+                            LastName = "Bjornfot",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        },
+                        new
+                        {
+                            Id = new Guid("7a2dcb8d-2195-4b41-a4d0-875c6ebcf1e8"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Robin.Edin@gmail.com",
+                            FirstName = "Robin",
+                            LastName = "Robin",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        },
+                        new
+                        {
+                            Id = new Guid("ab731f94-c0d5-4246-a4f6-8245c723d72c"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Alex.Stenberg@gmail.com",
+                            FirstName = "Alex",
+                            LastName = "Stenberg",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        },
+                        new
+                        {
+                            Id = new Guid("ece1da1c-6263-47e7-c36a-08d8911e42f9"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Jens.Svensson@gmail.com",
+                            FirstName = "Jens",
+                            LastName = "Svensson",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        },
+                        new
+                        {
+                            Id = new Guid("72898113-5015-44ed-9cc2-57382b5cd7f2"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Johan.Andersson@gmail.com",
+                            FirstName = "Johan",
+                            LastName = "Andersson",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        },
+                        new
+                        {
+                            Id = new Guid("109b6e0a-a64a-4feb-f16c-e68926ab2658"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Mattias.Andersson@gmail.com",
+                            FirstName = "Mattias",
+                            LastName = "Andersson",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        },
+                        new
+                        {
+                            Id = new Guid("4b3f3998-c612-4b5f-9994-887ba7496a21"),
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "Nicki.Edling@gmail.com",
+                            FirstName = "Nicki",
+                            LastName = "Edling",
+                            Modified = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Password = "????a??.?5?]z=?8w=.?s??>~N?Y"
+                        });
                 });
 
             modelBuilder.Entity("TravelAdvisor.Infrastructure.Migrations.Models.Review", b =>
                 {
                     b.HasOne("TravelAdvisor.Infrastructure.Migrations.Models.Attraction", "Attraction")
-                        .WithMany("Reviews")
-                        .HasForeignKey("AttractionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("AttractionId");
 
                     b.HasOne("TravelAdvisor.Infrastructure.Migrations.Models.User", "User")
                         .WithMany()
@@ -157,11 +215,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
                     b.Navigation("Attraction");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TravelAdvisor.Infrastructure.Migrations.Models.Attraction", b =>
-                {
-                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
