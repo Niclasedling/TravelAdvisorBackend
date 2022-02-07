@@ -95,7 +95,8 @@ namespace TravelAdvisor.Infrastructure.Services
                     Description = x.weather.FirstOrDefault()?.description,
                     Icon = x.weather.FirstOrDefault()?.icon,
                     Temperature = x.main.temp,
-                    WindSpeed = x.wind.speed
+                    WindSpeed = x.wind.speed,
+                    Humidity = x.main.humidity
                 }).ToList()
             };
         }
