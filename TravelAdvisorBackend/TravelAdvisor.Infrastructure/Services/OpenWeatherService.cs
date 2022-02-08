@@ -97,6 +97,8 @@ namespace TravelAdvisor.Infrastructure.Services
                     Temperature = x.main.temp,
                     WindSpeed = x.wind.speed,
                     Humidity = x.main.humidity,
+                    Latitude = response.city.coord.lat,
+                    Longitude = response.city.coord.lon,
                 }).ToList()
             };
         }

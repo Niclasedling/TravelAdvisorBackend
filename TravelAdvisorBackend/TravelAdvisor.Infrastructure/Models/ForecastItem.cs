@@ -14,5 +14,7 @@ namespace TravelAdvisor.Infrastructure.Models
         public string Description { get; set; }
         public string Icon { get; set; }
         public int Humidity { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
     }
 }
