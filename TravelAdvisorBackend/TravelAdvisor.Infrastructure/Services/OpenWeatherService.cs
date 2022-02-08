@@ -92,7 +92,7 @@ namespace TravelAdvisor.Infrastructure.Services
                 Items = response.list.Select(x => new ForecastItem
                 {
                     DateTime = UnixTimeStampToDateTime(x.dt),
-                    Description = x.weather.FirstOrDefault()?.description,
+                    Description = x.weather.FirstOrDefault()?.description.FirstCharToUpper(),
                     Icon = x.weather.FirstOrDefault()?.icon,
                     Temperature = x.main.temp,
                     WindSpeed = x.wind.speed,
@@ -109,4 +109,14 @@ namespace TravelAdvisor.Infrastructure.Services
             return dateTime;
         }
     }
+        public static class StringExtensions
+        {
+            public static string FirstCharToUpper(this string input) =>
+                input switch
+                {
+                    null => throw new ArgumentNullException(nameof(input)),
+                    "" => throw new ArgumentException($"{nameof(input)} cannot be empty", nameof(input)),
+                    _ => string.Concat(input[0].ToString().ToUpper(), input.AsSpan(1))
+                };
+        }
 }
