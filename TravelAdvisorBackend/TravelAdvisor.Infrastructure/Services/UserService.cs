@@ -135,7 +135,7 @@ namespace TravelAdvisor.Infrastructure.Services
             else return null; //Return felmeddelande
             
         }
-        public async Task<bool> Login(UserLoginDto userLogin)
+        public async Task<Guid> Login(UserLoginDto userLogin)
         {
 
             
@@ -145,10 +145,10 @@ namespace TravelAdvisor.Infrastructure.Services
 
             if (user == null)
             {
-                return false;
+                return Guid.Empty;
             }
 
-            return true;
+            return user.Id;
         }
 
       

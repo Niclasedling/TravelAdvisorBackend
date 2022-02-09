@@ -22,7 +22,7 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<UserDto> GetList();
 
-        Task<bool> Login(UserLoginDto userLogin);
+        Task<Guid> Login(UserLoginDto userLogin);
 
 
     }

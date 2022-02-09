@@ -13,7 +13,7 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<ReviewDto> GetAll();
 
-        Task<List<ReviewDto>> GetList();
+        Task<List<ReviewDto>> GetListById(Guid id);
 
         Task<bool> Delete(Guid id);
 

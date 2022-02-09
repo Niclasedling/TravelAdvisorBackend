@@ -44,16 +44,16 @@ namespace TravelAdvisor.Web.Controllers
         }
 
 
-        [HttpGet("GetList")]
-        public async Task<IActionResult> GetList()
+        [HttpGet("GetListById")]
+        public async Task<IActionResult> GetListById(Guid id)
         {
-            var item = await _reviewService.GetList();
+            var item = await _reviewService.GetListById(id);
             if (item != null)
             {
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetList)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetListById)} returned null."); // Tillfällig - fixa sen
         }
 
         [HttpDelete("Delete")]

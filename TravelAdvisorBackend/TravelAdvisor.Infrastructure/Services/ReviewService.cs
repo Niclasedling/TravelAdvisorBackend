@@ -85,7 +85,7 @@ namespace TravelAdvisor.Infrastructure.Services
             return null; //Lägg till felmeddelande.
         }
 
-        public async Task<List<ReviewDto>> GetList()
+        public async Task<List<ReviewDto>> GetListById(Guid id)
         {
 
             var reviews = await _unitOfWork.ReviewRepository.ListAsync(
