@@ -23,6 +23,8 @@ namespace TravelAdvisor.Infrastructure.Models
        
         public string Password { get; set; }
 
+        public string UserName { get; set; }
+
        
         public DateTime Created { get; set; } = DateTime.Now;
 
