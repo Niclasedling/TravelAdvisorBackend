@@ -86,6 +86,23 @@ namespace TravelAdvisor.Infrastructure.Services
             return null; //Lägg till felmeddelande
         }
 
+        public async Task<List<AttractionDto>> GetListByCity(string city)
+        {
+            var attractions = await _unitOfWork.AttractionRepository.ListAsync(
+              x => x,
+             predicate: x => x.City == city
+
+             );
+
+            if (attractions != null)
+            {
+                var map = _mapper.Map<List<AttractionDto>>(attractions);
+                return map;
+            }
+
+            return null; //Lägg till felmeddelande
+        }
+
         public async Task<bool> Update(AttractionUpdateDto updateAttraction)
         {
             if (updateAttraction == null) throw new ArgumentNullException(nameof(updateAttraction));

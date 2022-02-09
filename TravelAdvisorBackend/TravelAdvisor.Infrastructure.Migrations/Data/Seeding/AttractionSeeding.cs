@@ -23,11 +23,12 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data.Seeding
                   Details = "Stockholms södra station är en överbyggd järnvägsstation på Västra stambanan i stadsdelen Södermalm i centrala Stockholm. ",
                   Latitude = 45,
                   Longitude = 54,
-                  Name = "Stockholm",
+                  Name = "Hamnen",
                   Price = 100,
                   Image = "",
                   Created = DateTime.Parse("2021-01-01"),
                   Modified = DateTime.Parse("2021-01-01"),
+                  City = "Stockholm"
               },
               new Attraction()
               {
@@ -36,11 +37,12 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data.Seeding
                   Details = "Inräknat förorter har staden omkring 4,6 miljoner invånare och hela storstadsregionen 6,1 miljoner. ",
                   Latitude = 45,
                   Longitude = 54,
-                  Name = "Berlin",
+                  Name = "Shopping Center",
                   Price = 100,
                   Image = "",
                   Created = DateTime.Parse("2021-01-01"),
                   Modified = DateTime.Parse("2021-01-01"),
+                  City = "Berlin"
               },
                new Attraction()
                {
@@ -49,11 +51,12 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data.Seeding
                    Details = "Oslo, från 1624 till 1925 Kristiania, äldst Anslo/Ásló/Ósló, är Norges huvudstad och administrativt är Oslo kommun ett eget fylke, med drygt 690 000 invånare. ",
                    Latitude = 45,
                    Longitude = 54,
-                   Name = "Oslo",
+                   Name = "Oslo Centrum",
                    Price = 100,
                    Image = "",
                    Created = DateTime.Parse("2021-01-01"),
                    Modified = DateTime.Parse("2021-01-01"),
+                   City = "Oslo"
                },
                  new Attraction()
                  {
@@ -62,24 +65,26 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data.Seeding
                      Details = "Prag är huvudstad och största stad i Tjeckien samt är belägen vid floden Moldau.",
                      Latitude = 45,
                      Longitude = 54,
-                     Name = "Prag",
+                     Name = "Prag Centrum Norra",
                      Price = 100,
                      Image = "",
                      Created = DateTime.Parse("2021-01-01"),
                      Modified = DateTime.Parse("2021-01-01"),
+                     City = "Prag"
                  },
                 new Attraction()
                 {
                     Id = StaticEnums.attraction["ROME"],
-                    Address = "Rome Colosseum",
+                    Address = "Rom Colosseum",
                     Details = "Bygget som slutfördes av hans son Titus",
                     Latitude = 45,
                     Longitude = 54,
-                    Name = "Rome",
+                    Name = "Rom Colosseum",
                     Price = 100,
                     Image = "",
                     Created = DateTime.Parse("2021-01-01"),
                     Modified = DateTime.Parse("2021-01-01"),
+                    City = "Rom"
                 }
 
 

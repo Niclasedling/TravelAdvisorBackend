@@ -90,10 +90,11 @@ namespace TravelAdvisor.Infrastructure.Services
 
             var reviews = await _unitOfWork.ReviewRepository.ListAsync(
                 x => x,
+               predicate: x => x.Attraction.Id == id,
                include: i => i
               .Include(x => x.User)
               .Include(x => x.Attraction)
- 
+
                ); 
 
 

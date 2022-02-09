@@ -30,6 +30,8 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         public double Latitude { get; set; }
         [Required]
         public double Longitude { get; set; }
+        [Required]
+        public string City { get; set; }
 
 
 

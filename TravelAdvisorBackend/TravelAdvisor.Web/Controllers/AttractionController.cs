@@ -56,6 +56,18 @@ namespace TravelAdvisor.Web.Controllers
             return BadRequest($"{nameof(GetList)} returned null."); // Tillfällig - fixa sen
         }
 
+        [HttpGet("GetListByCity")]
+        public async Task<IActionResult> GetListByCity(string city)
+        {
+            var item = await _attractionService.GetListByCity(city);
+            if (item != null)
+            {
+                return Ok(item);
+            }
+
+            return BadRequest($"{nameof(GetList)} returned null."); // Tillfällig - fixa sen
+        }
+
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
