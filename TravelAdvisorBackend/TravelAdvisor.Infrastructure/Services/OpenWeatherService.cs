@@ -38,7 +38,7 @@ namespace TravelAdvisor.Infrastructure.Services
 
             //https://openweathermap.org/current
             var language = System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-            var uri = $"https://api.openweathermap.org/data/2.5/forecast?q={City}&units=metric&lang={language}&appid={apiKey}";
+            var uri = $"https://api.openweathermap.org/data/2.5/forecast?q={City}&units=metric&lang=en&appid={apiKey}";
 
             Forecast forecast = await ReadWebApiAsync(uri);
 
