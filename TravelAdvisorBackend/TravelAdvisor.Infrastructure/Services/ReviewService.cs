@@ -61,13 +61,19 @@ namespace TravelAdvisor.Infrastructure.Services
             return success;
         }
 
-        public async Task<ReviewDto> GetAll()
+        public async Task<List<ReviewDto>> GetAll()
         {
-            var reviews = await _unitOfWork.ReviewRepository.GetAllAsync();
+            var reviews = await _unitOfWork.ReviewRepository.ListAsync(
+                x => x,
+                include: i => i
+                .Include(x => x.Attraction)
+                .Include(x => x.User)
+
+                );
 
             if (reviews != null)
             {
-                return _mapper.Map<ReviewDto>(reviews);
+                return _mapper.Map<List<ReviewDto>>(reviews);
             }
 
             return null; //Lägg till felmeddelande
@@ -79,7 +85,8 @@ namespace TravelAdvisor.Infrastructure.Services
 
             if (review != null)
             {
-                return _mapper.Map<ReviewDto>(review);
+                var map = _mapper.Map<ReviewDto>(review);
+                return map;
             }
 
             return null; //Lägg till felmeddelande.
