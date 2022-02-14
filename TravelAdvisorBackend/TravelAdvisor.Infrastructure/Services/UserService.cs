@@ -51,11 +51,8 @@ namespace TravelAdvisor.Infrastructure.Services
             {
                 throw new Exception("User with the email already exists");
             }
-
-
         }
     
-
         public async Task<bool> DeleteUser(Guid id)
         {
             var user = await _unitOfWork.UserRepository.GetByGuidAsync(id);
@@ -115,8 +112,6 @@ namespace TravelAdvisor.Infrastructure.Services
         {
             throw new NotImplementedException();
         }
-
-
 
         //Denna method letar efetr en user via inmatade email //Merran
         public async Task<UserDto> GetByEmail(string email)

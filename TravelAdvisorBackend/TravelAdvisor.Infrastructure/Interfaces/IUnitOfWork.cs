@@ -23,5 +23,13 @@ namespace TravelAdvisor.Infrastructure.Interfaces
         {
             get;
         }
+        Repository<Comment> CommentRepository
+        {
+            get;
+        }
+        Repository<ThumbInteraction> ThumbInteractionRepository
+        {
+            get;
+        }
     }
 }

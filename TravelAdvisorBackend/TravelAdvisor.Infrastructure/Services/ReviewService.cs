@@ -29,9 +29,8 @@ namespace TravelAdvisor.Infrastructure.Services
 
             var map = _mapper.Map<Review>(newReview);
 
-            map.Attraction= await _unitOfWork.AttractionRepository.GetByGuidAsync(newReview.AttractionId); 
-            map.User = await _unitOfWork.UserRepository.GetByGuidAsync(newReview.UserId);
-
+            map.Attraction = await _unitOfWork.AttractionRepository.GetByGuidAsync(newReview.AttractionId);
+            map.User = await _unitOfWork.UserRepository.GetByGuidAsync(newReview.UserId);       
 
             var createdReview = await _unitOfWork.ReviewRepository.AddAsync(map);
 
@@ -39,11 +38,52 @@ namespace TravelAdvisor.Infrastructure.Services
             {
                 throw new Exception();
             }
-            
-            
+                    
             await _unitOfWork.SaveChanges();
 
             return createdReview.Id;
+        }
+        public async Task<Guid> CreateComment(CommentCreateDto newComment)
+        {
+            if (newComment == null) throw new NullReferenceException(nameof(newComment));
+
+            var mappedComment = _mapper.Map<Comment>(newComment);
+
+            mappedComment.Review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newComment.ReviewId);
+            mappedComment.User = await _unitOfWork.UserRepository.GetByGuidAsync(newComment.UserId);
+
+            var createdComment = await _unitOfWork.CommentRepository.AddAsync(mappedComment);
+
+            if (createdComment != null)
+            {
+                await _unitOfWork.SaveChanges();
+                return createdComment.Id;
+            }
+            else
+            {
+                throw new Exception();
+            }
+        }
+        public async Task<Guid> CreateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction)
+        {
+            if (newThumbInteraction == null) throw new NullReferenceException(nameof(newThumbInteraction));
+
+            var mappedThumbInteraction = _mapper.Map<ThumbInteraction>(newThumbInteraction);
+
+            mappedThumbInteraction.Review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
+            mappedThumbInteraction.User = await _unitOfWork.UserRepository.GetByGuidAsync(newThumbInteraction.UserId);
+
+            var createdThumbInteraction = await _unitOfWork.ThumbInteractionRepository.AddAsync(mappedThumbInteraction);
+
+            if (createdThumbInteraction != null)
+            {
+                await _unitOfWork.SaveChanges();
+                return createdThumbInteraction.Id;
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public async Task<bool> Delete(Guid id)
@@ -76,7 +116,7 @@ namespace TravelAdvisor.Infrastructure.Services
                 return _mapper.Map<List<ReviewDto>>(reviews);
             }
 
-            return null; //Lägg till felmeddelande
+            return null; 
         }
 
         public async Task<ReviewDto> GetById(Guid id)
@@ -89,21 +129,18 @@ namespace TravelAdvisor.Infrastructure.Services
                 return map;
             }
 
-            return null; //Lägg till felmeddelande.
+            return null;
         }
 
         public async Task<List<ReviewDto>> GetListById(Guid id)
         {
 
             var reviews = await _unitOfWork.ReviewRepository.ListAsync(
-                x => x,
+               x => x,
                predicate: x => x.Attraction.Id == id,
                include: i => i
               .Include(x => x.User)
-              .Include(x => x.Attraction)
-
-               ); 
-
+              .Include(x => x.Attraction));
 
             if (reviews != null)
             {
@@ -111,9 +148,43 @@ namespace TravelAdvisor.Infrastructure.Services
                 return map;
             }
 
-            return null; //Lägg till felmeddelande
-    
+            return null; 
+        }
 
+        public async Task<List<CommentDto>> GetCommentsByReviewId(Guid id)
+        {
+            var comments = await _unitOfWork.CommentRepository.ListAsync(
+                x => x,
+                predicate: x => x.Review.Id == id,
+                include: i => i
+                .Include(x => x.User)
+                .Include(x => x.Review));
+
+
+            if (comments != null)
+            {
+                var mappedComments = _mapper.Map<List<CommentDto>>(comments);
+                return mappedComments;
+            }
+
+            return null;
+        }
+
+        public async Task<List<ThumbInteractionDto>> GetThumbInteractionsByReviewId(Guid id)
+        {
+            var thumbInteractions = await _unitOfWork.ThumbInteractionRepository.ListAsync(
+                x => x,
+                predicate: x => x.Review.Id == id,
+                include: i => i
+                .Include(x => x.User)
+                .Include(x => x.Review));
+
+            if (thumbInteractions != null)
+            {
+                var mappedThumbInteractions = _mapper.Map<List<ThumbInteractionDto>>(thumbInteractions);
+                return mappedThumbInteractions;
+            }
+            return null;
         }
 
         public async Task<bool> Update(ReviewUpdateDto updateReview)
@@ -130,5 +201,6 @@ namespace TravelAdvisor.Infrastructure.Services
 
             else return false;
         }
+
     }
 }

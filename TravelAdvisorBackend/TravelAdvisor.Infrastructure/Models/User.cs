@@ -10,22 +10,17 @@ namespace TravelAdvisor.Infrastructure.Models
     {
       
         public Guid Id { get; set; }
-
-    
+ 
         public string FirstName { get; set; }
-
       
         public string LastName { get; set; }
-
-      
+   
         public string Email { get; set; }
-
-       
+      
         public string Password { get; set; }
 
         public string UserName { get; set; }
 
-       
         public DateTime Created { get; set; } = DateTime.Now;
 
         public DateTime Modify { get; set; }
@@ -35,7 +30,7 @@ namespace TravelAdvisor.Infrastructure.Models
     public class UserDto : UserBase
     {
 
-        public Dictionary<Guid, bool> HasLikedReview { get; set; }
+
 
 
 

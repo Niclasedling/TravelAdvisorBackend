@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelAdvisor.Infrastructure.Migrations.Data;
 
 namespace TravelAdvisor.Infrastructure.Migrations.Migrations
 {
     [DbContext(typeof(DbApplicationContext))]
-    partial class DbApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20220214094320_removed_comments_from_review")]
+    partial class removed_comments_from_review
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -140,9 +142,10 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
 
             modelBuilder.Entity("TravelAdvisor.Infrastructure.Migrations.Models.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<Guid?>("ReviewId")
                         .HasColumnType("uniqueidentifier");
@@ -209,30 +212,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Reviews");
-                });
-
-            modelBuilder.Entity("TravelAdvisor.Infrastructure.Migrations.Models.ThumbInteraction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("HasLiked")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ReviewId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ReviewId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ThumbInteractions");
                 });
 
             modelBuilder.Entity("TravelAdvisor.Infrastructure.Migrations.Models.User", b =>
@@ -377,21 +356,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Migrations
                         .HasForeignKey("UserId");
 
                     b.Navigation("Attraction");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("TravelAdvisor.Infrastructure.Migrations.Models.ThumbInteraction", b =>
-                {
-                    b.HasOne("TravelAdvisor.Infrastructure.Migrations.Models.Review", "Review")
-                        .WithMany()
-                        .HasForeignKey("ReviewId");
-
-                    b.HasOne("TravelAdvisor.Infrastructure.Migrations.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("Review");
 
                     b.Navigation("User");
                 });

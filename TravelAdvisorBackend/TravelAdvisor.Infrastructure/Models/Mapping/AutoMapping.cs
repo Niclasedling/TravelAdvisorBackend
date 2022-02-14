@@ -28,7 +28,7 @@ namespace TravelAdvisor.Infrastructure.Models.Mapping
             CreateMap<UserUpdateDto, User>();
             CreateMap<User, UserUpdateDto>().ForMember(dest => dest.Password, opt => opt.Ignore()).ForMember(dest => dest.Id, opt => opt.Ignore());
 
-            // Attraction Mapping
+            //Attraction Mapping
             CreateMap<AttractionDto, Attraction>();
             CreateMap<Attraction, AttractionDto>();
 
@@ -38,7 +38,7 @@ namespace TravelAdvisor.Infrastructure.Models.Mapping
             CreateMap<AttractionUpdateDto, Attraction>();
             CreateMap<Attraction, AttractionUpdateDto>();
 
-            // Review Mapping
+            //Review Mapping
             CreateMap<Review, ReviewDto>();
             CreateMap<ReviewDto, Review>();
 
@@ -47,6 +47,22 @@ namespace TravelAdvisor.Infrastructure.Models.Mapping
 
             CreateMap<ReviewUpdateDto, Review>();
             CreateMap<Review, ReviewUpdateDto>();
+
+            //Comment Mapping
+            CreateMap<Comment, CommentDto>();
+            CreateMap<CommentDto, Comment>();
+
+            CreateMap<Comment, CommentCreateDto>();
+            CreateMap<CommentCreateDto, Comment>();
+
+            CreateMap<Comment, CommentUpdateDto>();
+            CreateMap<CommentUpdateDto, Comment>();
+
+            //ThumbInteraction Mapping
+            CreateMap<ThumbInteraction, ThumbInteractionDto>().ReverseMap();
+            CreateMap<ThumbInteraction, ThumbInteractionCreateDto>().ReverseMap();
+            CreateMap<ThumbInteraction, ThumbInteractionUpdateDto>().ReverseMap();
+            
         }
 
     }

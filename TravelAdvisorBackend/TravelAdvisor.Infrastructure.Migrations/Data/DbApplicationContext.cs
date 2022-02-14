@@ -20,14 +20,13 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Attraction> Attractions { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<ThumbInteraction> ThumbInteractions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new AttractionConfiguration()); // ??
-            //modelBuilder.ApplyConfiguration(new ReviewConfiguration()); // ??
             modelBuilder.SeedUsers();
             modelBuilder.SeedAttraction();
-
 
             // felsök error = Object reference not set to an instance of an object.
             //modelBuilder.SeedReview();

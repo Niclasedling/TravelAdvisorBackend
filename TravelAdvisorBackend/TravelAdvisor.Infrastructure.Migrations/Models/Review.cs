@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,7 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         Average,
         VeryGood,
         Excellent,
-    } // Egen tabell Virtual ICollection
+    }
 
     public class Review : Entity
     {
@@ -39,6 +40,12 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
 
         [ForeignKey("AttractionId")]
         public virtual Attraction Attraction { get; set; }
+
+        [Required]
+        public int Likes { get; set; }
+
+        [Required]
+        public int Dislikes { get; set; }
 
     }
 }

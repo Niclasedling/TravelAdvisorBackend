@@ -91,7 +91,6 @@ namespace TravelAdvisor.Infrastructure.Services
             var attractions = await _unitOfWork.AttractionRepository.ListAsync(
               x => x,
              predicate: x => x.City == city
-
              );
 
             if (attractions != null)

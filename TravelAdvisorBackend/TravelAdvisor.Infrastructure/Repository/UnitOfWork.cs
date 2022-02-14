@@ -22,6 +22,8 @@ namespace TravelAdvisor.Infrastructure.Repository
         private Repository<User> userRepository;
         private Repository<Attraction> attractionRepository;
         private Repository<Review> reviewRepository;
+        private Repository<Comment> commentRepository;
+        private Repository<ThumbInteraction> thumbInteractionRepository;
 
         Repository<User> IUnitOfWork.UserRepository
         {
@@ -56,6 +58,28 @@ namespace TravelAdvisor.Infrastructure.Repository
                     this.reviewRepository = new Repository<Review>(context);
                 }
                 return reviewRepository;
+            }
+        }
+        Repository<Comment> IUnitOfWork.CommentRepository
+        {
+            get
+            {
+                if (this.commentRepository == null)
+                {
+                    this.commentRepository = new Repository<Comment>(context);
+                }
+                return commentRepository;
+            }
+        }
+        Repository<ThumbInteraction> IUnitOfWork.ThumbInteractionRepository
+        {
+            get
+            {
+                if (this.thumbInteractionRepository == null)
+                {
+                    this.thumbInteractionRepository = new Repository<ThumbInteraction>(context);
+                }
+                return thumbInteractionRepository;
             }
         }
 

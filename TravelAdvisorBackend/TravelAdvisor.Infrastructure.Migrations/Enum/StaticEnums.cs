@@ -35,7 +35,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Enum
             {"REVIEWGUID4",       Guid.Parse("265dca9d-6224-41f7-8a82-464692528928")},
             {"REVIEWGUID5",       Guid.Parse("3d1885e7-25e5-4d7c-8112-f9c763b3d831")},
             {"REVIEWGUID6",       Guid.Parse("df4550e0-68ed-400f-b721-c893b14e2cef")},
-
         };
     }
 }

@@ -19,6 +19,7 @@ namespace TravelAdvisor.Infrastructure.Models
     public abstract class ReviewBase
     {
         public Guid Id { get; set; }
+
         public string Title { get; set; }
 
         public string Description { get; set; }
@@ -31,8 +32,8 @@ namespace TravelAdvisor.Infrastructure.Models
 
         public UserDto User { get; set; }
 
-        // Comments / Likes
     }
+
     public class ReviewDto : ReviewBase
     {
 
@@ -61,9 +62,9 @@ namespace TravelAdvisor.Infrastructure.Models
 
         public DateTime Date { get; set; }
 
-        public Rating Rating { get; set; } = Rating.Unspecified;
+        public Rating Rating { get; set; }
 
-        public Guid UserId { get; set; } // Id
+        public Guid UserId { get; set; }
 
         public Guid AttractionId{ get; set; }
 
