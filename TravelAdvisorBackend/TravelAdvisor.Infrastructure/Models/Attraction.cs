@@ -15,7 +15,6 @@ namespace TravelAdvisor.Infrastructure.Models
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public int? Price { get; set; }
         public string Details { get; set; }
         public string City { get; set; }
 
@@ -35,7 +34,6 @@ namespace TravelAdvisor.Infrastructure.Models
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public int? Price { get; set; }
         public string Details { get; set; }
 
 
@@ -64,7 +62,6 @@ namespace TravelAdvisor.Infrastructure.Models
         public string Address { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
-        public int? Price { get; set; }
         public string Details { get; set; }
         public string City { get; set; }
 

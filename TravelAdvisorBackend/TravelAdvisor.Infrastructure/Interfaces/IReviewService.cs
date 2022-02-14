@@ -25,7 +25,7 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<Guid> CreateComment(CommentCreateDto newComment);
 
-        Task<Guid> CreateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction);
+        Task<ThumbInteractionDto> CreateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction);
 
         Task<bool> Update(ReviewUpdateDto updateReview);
     }

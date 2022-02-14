@@ -18,9 +18,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         public string Image { get; set; }
 
         [Required]
-        public int? Price { get; set; }
-
-        [Required]
         public string Details { get; set; }
 
         [Required]
