@@ -59,9 +59,14 @@ namespace TravelAdvisor.Infrastructure.Models.Mapping
             CreateMap<CommentUpdateDto, Comment>();
 
             //ThumbInteraction Mapping
-            CreateMap<ThumbInteraction, ThumbInteractionDto>().ReverseMap();
-            CreateMap<ThumbInteraction, ThumbInteractionCreateDto>().ReverseMap();
-            CreateMap<ThumbInteraction, ThumbInteractionUpdateDto>().ReverseMap();
+            CreateMap<ThumbInteraction, ThumbInteractionDto>();
+            CreateMap<ThumbInteractionDto, ThumbInteraction>();
+
+            CreateMap<ThumbInteraction, ThumbInteractionCreateDto>();
+            CreateMap<ThumbInteractionCreateDto, ThumbInteraction>();
+
+            CreateMap<ThumbInteraction, ThumbInteractionUpdateDto>();
+            CreateMap<ThumbInteractionUpdateDto, ThumbInteraction>();
             
         }
 

@@ -69,15 +69,13 @@ namespace TravelAdvisor.Infrastructure.Services
             if (newThumbInteraction == null) throw new NullReferenceException(nameof(newThumbInteraction));
             
             var mappedThumbInteraction = _mapper.Map<ThumbInteraction>(newThumbInteraction);
+            mappedThumbInteraction.Review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
+            mappedThumbInteraction.User = await _unitOfWork.UserRepository.GetByGuidAsync(newThumbInteraction.UserId);
 
             var response = await CheckThumbInteraction(newThumbInteraction.UserId);
 
             if (response == null)
             {
-
-                mappedThumbInteraction.Review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
-                mappedThumbInteraction.User = await _unitOfWork.UserRepository.GetByGuidAsync(newThumbInteraction.UserId);
-
                 var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
 
                 if (mappedThumbInteraction.HasLiked)
@@ -89,16 +87,24 @@ namespace TravelAdvisor.Infrastructure.Services
                     updateReview.Dislikes++;
                 }
 
+                await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
                 var createdThumbInteraction = await _unitOfWork.ThumbInteractionRepository.AddAsync(mappedThumbInteraction);
 
+                await _unitOfWork.SaveChanges();
                 return _mapper.Map<ThumbInteractionDto>(createdThumbInteraction);
             }
             else
             {
                 if (response.HasLiked == newThumbInteraction.HasLiked)
                 {
-                    await _unitOfWork.ThumbInteractionRepository.RemoveAsync(_mapper.Map<ThumbInteraction>(response));
                     var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
+                    mappedThumbInteraction.Review = null;
+                    mappedThumbInteraction.User = null;
+
+                    await _unitOfWork.ThumbInteractionRepository.UpdateAsync(mappedThumbInteraction);
+
+                    await _unitOfWork.ThumbInteractionRepository.RemoveAsync(mappedThumbInteraction);
+
 
                     if (response.HasLiked)
                     {
@@ -108,6 +114,8 @@ namespace TravelAdvisor.Infrastructure.Services
                     {
                         updateReview.Dislikes--;
                     }
+
+                    await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
                 }
                 else if (response.HasLiked != newThumbInteraction.HasLiked)
                 {
@@ -126,22 +134,36 @@ namespace TravelAdvisor.Infrastructure.Services
                         updateReview.Likes--;
                         updateReview.Dislikes++;
                     }
-                    
+
+                    await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
                 }
             }
 
             await _unitOfWork.SaveChanges();
             return _mapper.Map<ThumbInteractionDto>(response);
-
         }
+        //public async Task<ThumbInteractionDto> UpdateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction)
+        //{
+
+        //}
+        //{
+
+        //}
+        //public async Task<ThumbInteractionDto> DeleteThumbInteraction(Guid thumbInteractionId)
+        //{
+
+        //}
 
         public async Task<ThumbInteractionDto> CheckThumbInteraction(Guid userId)
         {
-            var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(userId);
+            var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(
+                x => x,
+                predicate: x => x.User.Id == userId,
+                null);
 
             if (thumbInteraction != null)
             {
-                return _mapper.Map<ThumbInteractionDto>(thumbInteraction);
+                return _mapper.Map<ThumbInteractionDto>(thumbInteraction.FirstOrDefault());
             }
             else
             {
