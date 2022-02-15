@@ -15,18 +15,12 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<List<ReviewDto>> GetListById(Guid id);
 
-        Task<List<CommentDto>> GetCommentsByReviewId(Guid id);
-
-        Task<List<ThumbInteractionDto>> GetThumbInteractionsByReviewId(Guid id);
 
         Task<bool> Delete(Guid id);
 
         Task<Guid> Create(ReviewCreateDto newReview);
 
-        Task<Guid> CreateComment(CommentCreateDto newComment);
-
-        Task<ThumbInteractionDto> CreateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction);
-
+    
         Task<bool> Update(ReviewUpdateDto updateReview);
     }
 }
