@@ -18,9 +18,13 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 
         Task<bool> Delete(Guid id);
 
+        Task<bool> DeleteThumbInteraction(Guid thumbInteractionId);
+
         Task<Guid> Create(ReviewCreateDto newReview);
 
     
         Task<bool> Update(ReviewUpdateDto updateReview);
+
+        Task<ThumbInteractionDto> UpdateThumbInteraction(ThumbInteractionUpdateDto updateThumbInteraction);
     }
 }
