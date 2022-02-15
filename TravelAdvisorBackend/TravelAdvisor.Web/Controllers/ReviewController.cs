@@ -67,16 +67,6 @@ namespace TravelAdvisor.Web.Controllers
 
             return BadRequest($"{nameof(Delete)} returned false.");
         }
-        [HttpDelete("DeleteThumbInteraction")]
-        public async Task<IActionResult> DeleteThumbInteraction(Guid id)
-        {
-            if (await _reviewService.DeleteThumbInteraction(id))
-            {
-                return Ok();
-            }
-
-            return BadRequest($"{nameof(Delete)} returned false.");
-        }
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create(ReviewCreateDto newReview)
@@ -86,7 +76,6 @@ namespace TravelAdvisor.Web.Controllers
             return Ok(item);
 
         }
-
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(ReviewUpdateDto updateReview)
@@ -99,14 +88,6 @@ namespace TravelAdvisor.Web.Controllers
             }
 
             return BadRequest($"{nameof(Update)} returned null.");
-        }
-
-        [HttpPut("UpdateThumbInteraction")]
-        public async Task<IActionResult> UpdateThumbInteraction(ThumbInteractionUpdateDto updateThumbInteraction)
-        {
-            var response = await _reviewService.UpdateThumbInteraction(updateThumbInteraction);
-
-            return Ok(response);
         }
     }
 }

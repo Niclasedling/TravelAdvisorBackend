@@ -20,6 +20,6 @@ public interface IThumbInteractionService
 
         Task<Guid> Create(ThumbInteractionCreateDto thumbInteractionCreateDto);
 
-        Task<bool> Update(ThumbInteractionUpdateDto  thumbInteractionUpdateDto);
+        Task<bool> Update(ThumbInteractionUpdateDto thumbInteractionUpdateDto);
     }
 }

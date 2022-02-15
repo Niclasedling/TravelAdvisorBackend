@@ -110,10 +110,6 @@ namespace TravelAdvisor.Infrastructure.Services
             return null; 
         }
 
-   
-
-  
-
         public async Task<bool> Update(ReviewUpdateDto updateReview)
         {
             if (updateReview == null) throw new ArgumentNullException(nameof(updateReview));

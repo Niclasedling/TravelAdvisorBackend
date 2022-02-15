@@ -21,8 +21,7 @@ namespace TravelAdvisor.Infrastructure.Services
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
-        //Varför retunera objektet?
-        //Fixa resten!
+
         public async Task<Guid> Create(ThumbInteractionCreateDto newThumbInteraction)
         {
             if (newThumbInteraction == null) throw new NullReferenceException(nameof(newThumbInteraction));
@@ -31,84 +30,58 @@ namespace TravelAdvisor.Infrastructure.Services
             mappedThumbInteraction.Review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
             mappedThumbInteraction.User = await _unitOfWork.UserRepository.GetByGuidAsync(newThumbInteraction.UserId);
 
-            var response = await CheckThumbInteraction(newThumbInteraction.UserId);
+            var review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
 
-            if (response == null)
-            {
-                var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
+            if (newThumbInteraction.HasLiked) review.Likes++;
+            else review.Dislikes++;
 
-                if (mappedThumbInteraction.HasLiked)
-                {
-                    updateReview.Likes++;
-                }
-                else
-                {
-                    updateReview.Dislikes++;
-                }
-
-                await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
-                var createdThumbInteraction = await _unitOfWork.ThumbInteractionRepository.AddAsync(mappedThumbInteraction);
-
-                await _unitOfWork.SaveChanges();
-                return createdThumbInteraction.Id;
-            }
-            else
-            {
-                if (response.HasLiked == newThumbInteraction.HasLiked)
-                {
-                    var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
-                    mappedThumbInteraction.Review = null;
-                    mappedThumbInteraction.User = null;
-
-                    await _unitOfWork.ThumbInteractionRepository.UpdateAsync(mappedThumbInteraction);
-
-                    await _unitOfWork.ThumbInteractionRepository.RemoveAsync(mappedThumbInteraction);
-
-
-                    if (response.HasLiked)
-                    {
-                        updateReview.Likes--;
-                    }
-                    else
-                    {
-                        updateReview.Dislikes--;
-                    }
-
-                    await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
-                }
-                else if (response.HasLiked != newThumbInteraction.HasLiked)
-                {
-                    var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(response.Id);
-                    thumbInteraction.HasLiked = !thumbInteraction.HasLiked;
-
-                    var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
-
-                    if (thumbInteraction.HasLiked)
-                    {
-                        updateReview.Likes++;
-                        updateReview.Dislikes--;
-                    }
-                    else
-                    {
-                        updateReview.Likes--;
-                        updateReview.Dislikes++;
-                    }
-
-                    await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
-                }
-            }
-
+            await _unitOfWork.ReviewRepository.UpdateAsync(review);
+            await _unitOfWork.ThumbInteractionRepository.AddAsync(mappedThumbInteraction);
             await _unitOfWork.SaveChanges();
-            return response.Id;
-        }
-        public Task<bool> Update(ThumbInteractionUpdateDto thumbInteractionUpdateDto)
-        {
-            throw new NotImplementedException();
+
+            return mappedThumbInteraction.Id;
         }
 
-        public Task<bool> Delete(Guid id)
+        public async Task<bool> Update(ThumbInteractionUpdateDto updateThumbInteraction)
         {
-            throw new NotImplementedException();
+            var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(updateThumbInteraction.Id);
+
+            if (updateThumbInteraction.HasLiked && thumbInteraction.HasLiked)
+            {
+                var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
+
+                if (updateThumbInteraction.HasLiked) updateReview.Likes--;
+                
+                else updateReview.Dislikes--;
+                
+                await Delete(updateThumbInteraction.Id);
+                return true; // fixa
+            }
+            else if (updateThumbInteraction.HasLiked != thumbInteraction.HasLiked)
+            {
+                thumbInteraction.HasLiked = !thumbInteraction.HasLiked;
+                var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
+
+                if (thumbInteraction.HasLiked) { updateReview.Likes++; updateReview.Dislikes--; }
+                else { updateReview.Likes--; updateReview.Dislikes++; }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> Delete(Guid thumbInteractionId)
+        {
+            var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(thumbInteractionId);
+
+            if (thumbInteraction != null)
+            {
+                await _unitOfWork.ThumbInteractionRepository.RemoveAsync(thumbInteraction);
+                await _unitOfWork.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public Task<ThumbInteractionDto> GetAll()
@@ -154,7 +127,5 @@ namespace TravelAdvisor.Infrastructure.Services
                 return null;
             }
         }
-
-
     }
 }

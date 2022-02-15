@@ -79,6 +79,7 @@ namespace TravelAdvisor.Web.Controllers
 
             return BadRequest($"{nameof(Update)} returned null.");
         }
+
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(Guid id)
         {
