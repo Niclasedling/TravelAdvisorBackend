@@ -72,89 +72,84 @@ namespace TravelAdvisor.Infrastructure.Services
             mappedThumbInteraction.Review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
             mappedThumbInteraction.User = await _unitOfWork.UserRepository.GetByGuidAsync(newThumbInteraction.UserId);
 
-            var response = await CheckThumbInteraction(newThumbInteraction.UserId);
+            var review = await _unitOfWork.ReviewRepository.GetByGuidAsync(newThumbInteraction.ReviewId);
 
-            if (response == null)
+            if (newThumbInteraction.HasLiked)
             {
-                var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
-
-                if (mappedThumbInteraction.HasLiked)
-                {
-                    updateReview.Likes++;
-                }
-                else
-                {
-                    updateReview.Dislikes++;
-                }
-
-                await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
-                var createdThumbInteraction = await _unitOfWork.ThumbInteractionRepository.AddAsync(mappedThumbInteraction);
-
-                await _unitOfWork.SaveChanges();
-                return _mapper.Map<ThumbInteractionDto>(createdThumbInteraction);
+                review.Likes++;
             }
             else
             {
-                if (response.HasLiked == newThumbInteraction.HasLiked)
+                review.Dislikes++;
+            }
+
+            await _unitOfWork.ReviewRepository.UpdateAsync(review);
+            await _unitOfWork.ThumbInteractionRepository.AddAsync(mappedThumbInteraction);
+            await _unitOfWork.SaveChanges();
+
+            return _mapper.Map<ThumbInteractionDto>(mappedThumbInteraction);
+        }
+
+        public async Task<ThumbInteractionDto> UpdateThumbInteraction(ThumbInteractionUpdateDto updateThumbInteraction)
+        {
+            var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(updateThumbInteraction.Id);
+
+            if (updateThumbInteraction.HasLiked && thumbInteraction.HasLiked)
+            {
+                var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
+
+                if (updateThumbInteraction.HasLiked)
                 {
-                    var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
-                    mappedThumbInteraction.Review = null;
-                    mappedThumbInteraction.User = null;
-
-                    await _unitOfWork.ThumbInteractionRepository.UpdateAsync(mappedThumbInteraction);
-
-                    await _unitOfWork.ThumbInteractionRepository.RemoveAsync(mappedThumbInteraction);
-
-
-                    if (response.HasLiked)
-                    {
-                        updateReview.Likes--;
-                    }
-                    else
-                    {
-                        updateReview.Dislikes--;
-                    }
-
-                    await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
+                    updateReview.Likes--;
                 }
-                else if (response.HasLiked != newThumbInteraction.HasLiked)
+                else
                 {
-                    var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(response.Id);
-                    thumbInteraction.HasLiked = !thumbInteraction.HasLiked;
+                    updateReview.Dislikes--;
+                }
 
-                    var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(mappedThumbInteraction.Review.Id);
+                await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
+                await DeleteThumbInteraction(updateThumbInteraction.Id);
+                await _unitOfWork.SaveChanges();
+                return null;
+            }
 
-                    if (thumbInteraction.HasLiked)
-                    {
-                        updateReview.Likes++;
-                        updateReview.Dislikes--;
-                    }
-                    else
-                    {
-                        updateReview.Likes--;
-                        updateReview.Dislikes++;
-                    }
+            else if (updateThumbInteraction.HasLiked != thumbInteraction.HasLiked)
+            {
+                thumbInteraction.HasLiked = !thumbInteraction.HasLiked;
 
-                    await _unitOfWork.ReviewRepository.UpdateAsync(updateReview);
+                var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
+
+                if (thumbInteraction.HasLiked)
+                {
+                    updateReview.Likes++;
+                    updateReview.Dislikes--;
+                }
+                else
+                {
+                    updateReview.Likes--;
+                    updateReview.Dislikes++;
                 }
             }
 
             await _unitOfWork.SaveChanges();
-            return _mapper.Map<ThumbInteractionDto>(response);
+            return _mapper.Map<ThumbInteractionDto>(thumbInteraction);
+
         }
-        //public async Task<ThumbInteractionDto> UpdateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction)
-        //{
+        
+        public async Task<bool> DeleteThumbInteraction(Guid thumbInteractionId)
+        {
+            var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(thumbInteractionId);
 
-        //}
-        //{
+            if (thumbInteraction != null)
+            {
+                await _unitOfWork.ThumbInteractionRepository.RemoveAsync(thumbInteraction);
+                await _unitOfWork.SaveChanges();
+                return true;
+            }
+            return false;
+        }
 
-        //}
-        //public async Task<ThumbInteractionDto> DeleteThumbInteraction(Guid thumbInteractionId)
-        //{
-
-        //}
-
-        public async Task<ThumbInteractionDto> CheckThumbInteraction(Guid userId)
+        public async Task<ThumbInteractionDto> GetThumbInteraction(Guid userId)
         {
             var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(
                 x => x,

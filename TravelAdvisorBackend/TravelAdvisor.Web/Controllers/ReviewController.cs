@@ -29,7 +29,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetById)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetById)} returned null.");
         }
 
         [HttpGet("GetAll")]
@@ -40,7 +40,7 @@ namespace TravelAdvisor.Web.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest($"{nameof(GetAll)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetAll)} returned null.");
         }
 
 
@@ -53,7 +53,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetListById)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetListById)} returned null.");
         }
 
         [HttpGet("GetCommentsByReviewId")]
@@ -88,7 +88,17 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Delete)} returned false."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(Delete)} returned false.");
+        }
+        [HttpDelete("DeleteThumbInteraction")]
+        public async Task<IActionResult> DeleteThumbInteraction(Guid id)
+        {
+            if (await _reviewService.DeleteThumbInteraction(id))
+            {
+                return Ok();
+            }
+
+            return BadRequest($"{nameof(Delete)} returned false.");
         }
 
         [HttpPost("Create")]
@@ -126,7 +136,15 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Update)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(Update)} returned null.");
+        }
+
+        [HttpPut("UpdateThumbInteraction")]
+        public async Task<IActionResult> UpdateThumbInteraction(ThumbInteractionUpdateDto updateThumbInteraction)
+        {
+            var response = await _reviewService.UpdateThumbInteraction(updateThumbInteraction);
+
+            return Ok(response);
         }
     }
 }
