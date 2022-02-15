@@ -108,7 +108,6 @@ namespace TravelAdvisor.Web.Controllers
 
             return Ok(item);
 
-            /*return BadRequest($"{nameof(Create)} returned null.");*/ // Tillfällig - fixa sen
         }
         [HttpPost("CreateComment")]
         public async Task<IActionResult> CreateComment(CommentCreateDto newComment)

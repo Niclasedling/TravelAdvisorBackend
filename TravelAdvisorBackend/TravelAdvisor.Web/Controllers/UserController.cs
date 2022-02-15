@@ -30,7 +30,6 @@ namespace TravelAdvisor.Web.Controllers
             _userService = userService ?? throw new ArgumentNullException(nameof(userService));
             _logger = logger;
            
-
         }
 
 

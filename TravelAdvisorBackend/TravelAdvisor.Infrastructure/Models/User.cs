@@ -31,31 +31,17 @@ namespace TravelAdvisor.Infrastructure.Models
     {
 
 
-
-
-
-
     }
 
     public class UserUpdateDto : UserBase
     {
 
 
-
-
-
-
-
-
-
     }
 
     public class UserDeleteDto
     {
-
         public Guid Id { get; set; }
-
-
 
     }
 
@@ -64,15 +50,10 @@ namespace TravelAdvisor.Infrastructure.Models
 
 
 
-
-
-
-
     }
 
     public class UserCreateDto
     {
-        //public Guid Id { get; set; } = new Guid();
 
         public string FirstName { get; set; }
 
@@ -84,25 +65,14 @@ namespace TravelAdvisor.Infrastructure.Models
 
         public string UserName { get; set; }
 
-        //public DateTime Created { get; set; } = DateTime.Now;
-
-        //public DateTime? Modify { get; set; } = DateTime.Now;
     }
     public class UserLoginDto
     {
-        //public Guid Id { get; set; } = new Guid();
-
-        //public string FirstName { get; set; }
-
-        //public string LastName { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
 
-        //public DateTime Created { get; set; } = DateTime.Now;
-
-        //public DateTime? Modify { get; set; } = DateTime.Now;
     }
 
 }
