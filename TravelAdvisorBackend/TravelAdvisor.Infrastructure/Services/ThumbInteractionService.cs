@@ -46,7 +46,7 @@ namespace TravelAdvisor.Infrastructure.Services
         {
             var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(updateThumbInteraction.Id);
 
-            if (updateThumbInteraction.HasLiked && thumbInteraction.HasLiked)
+            if (updateThumbInteraction.HasLiked == thumbInteraction.HasLiked)
             {
                 var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
 
@@ -55,8 +55,11 @@ namespace TravelAdvisor.Infrastructure.Services
                 else updateReview.Dislikes--;
                 
                 await Delete(updateThumbInteraction.Id);
-                return true; // fixa
+
+                await _unitOfWork.SaveChanges();
+                return true;
             }
+
             else if (updateThumbInteraction.HasLiked != thumbInteraction.HasLiked)
             {
                 thumbInteraction.HasLiked = !thumbInteraction.HasLiked;
@@ -65,6 +68,7 @@ namespace TravelAdvisor.Infrastructure.Services
                 if (thumbInteraction.HasLiked) { updateReview.Likes++; updateReview.Dislikes--; }
                 else { updateReview.Likes--; updateReview.Dislikes++; }
 
+                await _unitOfWork.SaveChanges();
                 return true;
             }
 
@@ -111,7 +115,7 @@ namespace TravelAdvisor.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ThumbInteractionDto> CheckThumbInteraction(Guid userId)
+        public async Task<ThumbInteractionDto> GetByUserId(Guid userId)
         {
             var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(
                 x => x,

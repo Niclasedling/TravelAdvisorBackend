@@ -33,6 +33,18 @@ namespace TravelAdvisor.Web.Controllers
             return BadRequest($"{nameof(GetById)} returned null.");
         }
 
+        [HttpGet("GetByUserId")] 
+        public async Task<IActionResult> GetByUserId(Guid id)
+        {
+            var item = await _thumbInteractionService.GetByUserId(id);
+            if (item != null)
+            {
+                return Ok(item);
+            }
+
+            return BadRequest($"{nameof(GetById)} returned null.");
+        }
+
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -90,5 +102,6 @@ namespace TravelAdvisor.Web.Controllers
 
             return BadRequest($"{nameof(Delete)} returned false.");
         }
+
     }
 }

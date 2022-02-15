@@ -9,17 +9,18 @@ namespace TravelAdvisor.Infrastructure.Interfaces
 {
 public interface IThumbInteractionService
     {
+        Task<Guid> Create(ThumbInteractionCreateDto thumbInteractionCreateDto);
+
         Task<List<ThumbInteractionDto>> GetById(Guid id);
 
         Task<ThumbInteractionDto> GetAll();
 
         Task<List<ThumbInteractionDto>> GetList();
-    
 
-        Task<bool> Delete(Guid id);
-
-        Task<Guid> Create(ThumbInteractionCreateDto thumbInteractionCreateDto);
+        Task<ThumbInteractionDto> GetByUserId(Guid userId);
 
         Task<bool> Update(ThumbInteractionUpdateDto thumbInteractionUpdateDto);
+
+        Task<bool> Delete(Guid id);
     }
 }
