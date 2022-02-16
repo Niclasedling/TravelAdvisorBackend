@@ -29,7 +29,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetById)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetById)} returned null.");
         }
 
         [HttpGet("GetAll")]
@@ -40,7 +40,7 @@ namespace TravelAdvisor.Web.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest($"{nameof(GetAll)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetAll)} returned null.");
         }
 
 
@@ -53,32 +53,9 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetListById)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetListById)} returned null.");
         }
 
-        [HttpGet("GetCommentsByReviewId")]
-        public async Task<IActionResult> GetCommentsByReviewId(Guid id)
-        {
-            var item = await _reviewService.GetCommentsByReviewId(id);
-            if (item != null)
-            {
-                return Ok(item);
-            }
-
-            return BadRequest($"{nameof(GetCommentsByReviewId)} returned null.");
-        }
-        
-        [HttpGet("GetThumbInteractionsByReviewId")]
-        public async Task<IActionResult> GetThumbInteractionsByReviewId(Guid id)
-        {
-            var item = await _reviewService.GetThumbInteractionsByReviewId(id);
-            if (item != null)
-            {
-                return Ok(item);
-            }
-
-            return BadRequest($"{nameof(GetThumbInteractionsByReviewId)} returned null.");
-        }
 
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(Guid id)
@@ -88,7 +65,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Delete)} returned false."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(Delete)} returned false.");
         }
 
         [HttpPost("Create")]
@@ -98,22 +75,6 @@ namespace TravelAdvisor.Web.Controllers
 
             return Ok(item);
 
-            /*return BadRequest($"{nameof(Create)} returned null.");*/ // Tillfällig - fixa sen
-        }
-        [HttpPost("CreateComment")]
-        public async Task<IActionResult> CreateComment(CommentCreateDto newComment)
-        {
-            var item = await _reviewService.CreateComment(newComment);
-
-            return Ok(item);
-        }
-
-        [HttpPost("CreateThumbInteraction")]
-        public async Task<IActionResult> CreateThumbInteraction(ThumbInteractionCreateDto newThumbInteraction)
-        {
-            var item = await _reviewService.CreateThumbInteraction(newThumbInteraction);
-
-            return Ok(item);
         }
 
         [HttpPut("Update")]
@@ -126,7 +87,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Update)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(Update)} returned null.");
         }
     }
 }

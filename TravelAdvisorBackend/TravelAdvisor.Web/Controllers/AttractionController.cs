@@ -29,7 +29,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetById)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetById)} returned null."); 
         }
 
         [HttpGet("GetAll")]
@@ -40,7 +40,7 @@ namespace TravelAdvisor.Web.Controllers
             {
                 return Ok(item);
             }
-            return BadRequest($"{nameof(GetAll)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetAll)} returned null."); 
         }
 
 
@@ -53,7 +53,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetList)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetList)} returned null."); 
         }
 
         [HttpGet("GetListByCity")]
@@ -65,7 +65,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok(item);
             }
 
-            return BadRequest($"{nameof(GetList)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(GetList)} returned null."); 
         }
 
         [HttpDelete("Delete")]
@@ -76,7 +76,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Delete)} returned false."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(Delete)} returned false."); 
         }
 
         [HttpPost("Create")]
@@ -86,7 +86,6 @@ namespace TravelAdvisor.Web.Controllers
 
             return Ok(item);
 
-            /*return BadRequest($"{nameof(Create)} returned null.");*/ // Tillfällig - fixa sen
         }
 
         [HttpPut("Update")]
@@ -99,7 +98,7 @@ namespace TravelAdvisor.Web.Controllers
                 return Ok();
             }
 
-            return BadRequest($"{nameof(Update)} returned null."); // Tillfällig - fixa sen
+            return BadRequest($"{nameof(Update)} returned null."); 
         }
     }
 }

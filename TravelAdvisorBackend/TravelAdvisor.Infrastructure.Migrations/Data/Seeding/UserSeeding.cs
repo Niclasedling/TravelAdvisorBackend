@@ -14,7 +14,6 @@ namespace TravelAdvisor.Infrastructure.Migrations.Data.Seeding
 
         public static void SeedUsers(this ModelBuilder builder)
         {
-            //Password = HejHopp
 
             builder.Entity<User>().HasData(
               new User()

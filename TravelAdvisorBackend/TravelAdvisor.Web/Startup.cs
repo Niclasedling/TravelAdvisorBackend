@@ -60,6 +60,8 @@ namespace TravelAdvisor.Web
             services.AddScoped<IAttractionService, AttractionService>();
             services.AddScoped<IReviewService, ReviewService>();
             services.AddScoped<IOpenWeatherService, OpenWeatherService>();
+            services.AddScoped<IThumbInteractionService, ThumbInteractionService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             string connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<DbApplicationContext>(options => options.UseSqlServer(connection));
