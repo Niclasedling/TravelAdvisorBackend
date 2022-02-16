@@ -35,6 +35,8 @@ namespace TravelAdvisor.Infrastructure.Models
         public int Likes { get; set; }
         public int Dislikes { get; set; }
 
+
+        public Guid AttractionId { get; set; }
     }
 
     public class ReviewDto : ReviewBase
@@ -59,6 +61,7 @@ namespace TravelAdvisor.Infrastructure.Models
 
     public class ReviewCreateDto
     {
+        public Guid Id { get; set; }
         public string Title { get; set; }
 
         public string Description { get; set; }
