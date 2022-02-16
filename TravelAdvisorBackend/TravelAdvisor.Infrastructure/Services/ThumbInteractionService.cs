@@ -90,8 +90,14 @@ namespace TravelAdvisor.Infrastructure.Services
 
         public async Task <List<ThumbInteractionDto>> GetAll()
         {
-            var thumbInteractions = await _unitOfWork.ThumbInteractionRepository.GetAllAsync();
+            var thumbInteractions = await _unitOfWork.ThumbInteractionRepository.ListAsync(
+                x => x,
+                include: i => i
+                .Include(x => x.User)
+                .Include(x => x.Review));
+
             var mappedThumbInteractions = _mapper.Map<List<ThumbInteractionDto>>(thumbInteractions);
+
             return mappedThumbInteractions;
         }
 
@@ -122,7 +128,9 @@ namespace TravelAdvisor.Infrastructure.Services
             var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(
                 x => x,
                 predicate: x => x.User.Id == userId,
-                null);
+                include: i => i
+                .Include(x => x.User)
+                .Include(x => x.Review));
 
             if (thumbInteraction != null)
             {
@@ -132,6 +140,25 @@ namespace TravelAdvisor.Infrastructure.Services
             {
                 return null;
             }
+        }
+
+        public async Task<List<ThumbInteractionDto>> GetListById(Guid id)
+        {
+
+            var thumbInteractions = await _unitOfWork.ThumbInteractionRepository.ListAsync(
+               x => x,
+               predicate: x => x.User.Id == id,
+               include: i => i
+              .Include(x => x.User)
+              .Include(x => x.Review));
+
+            if (thumbInteractions != null)
+            {
+                var map = _mapper.Map<List<ThumbInteractionDto>>(thumbInteractions);
+                return map;
+            }
+
+            return null;
         }
     }
 }

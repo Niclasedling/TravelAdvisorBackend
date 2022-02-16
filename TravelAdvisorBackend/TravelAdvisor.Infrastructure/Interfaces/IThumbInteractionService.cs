@@ -17,6 +17,7 @@ public interface IThumbInteractionService
 
         Task<List<ThumbInteractionDto>> GetList();
 
+        Task<List<ThumbInteractionDto>> GetListById(Guid id);
         Task<ThumbInteractionDto> GetByUserId(Guid userId);
 
         Task<bool> Update(ThumbInteractionUpdateDto thumbInteractionUpdateDto);
