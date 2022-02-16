@@ -88,9 +88,11 @@ namespace TravelAdvisor.Infrastructure.Services
             return false;
         }
 
-        public Task<ThumbInteractionDto> GetAll()
+        public async Task <List<ThumbInteractionDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var thumbInteractions = await _unitOfWork.ThumbInteractionRepository.GetAllAsync();
+            var mappedThumbInteractions = _mapper.Map<List<ThumbInteractionDto>>(thumbInteractions);
+            return mappedThumbInteractions;
         }
 
         public async Task<List<ThumbInteractionDto>> GetById(Guid id)
