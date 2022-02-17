@@ -46,7 +46,8 @@ namespace TravelAdvisor.Infrastructure.Services
         {
             var thumbInteraction = await _unitOfWork.ThumbInteractionRepository.GetByGuidAsync(updateThumbInteraction.Id);
 
-            if (updateThumbInteraction.HasLiked == thumbInteraction.HasLiked)
+
+            if (thumbInteraction != null && updateThumbInteraction.HasLiked == thumbInteraction.HasLiked)
             {
                 var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
 
@@ -60,7 +61,7 @@ namespace TravelAdvisor.Infrastructure.Services
                 return true;
             }
 
-            else if (updateThumbInteraction.HasLiked != thumbInteraction.HasLiked)
+            else if (thumbInteraction != null && updateThumbInteraction.HasLiked != thumbInteraction.HasLiked)
             {
                 thumbInteraction.HasLiked = !thumbInteraction.HasLiked;
                 var updateReview = await _unitOfWork.ReviewRepository.GetByGuidAsync(updateThumbInteraction.ReviewId);
@@ -88,9 +89,21 @@ namespace TravelAdvisor.Infrastructure.Services
             return false;
         }
 
-        public Task<ThumbInteractionDto> GetAll()
+        public async Task<List<ThumbInteractionDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var thumbInteractions = await _unitOfWork.ThumbInteractionRepository.ListAsync(
+                x => x,
+                null,
+                include: i => i
+                .Include(x => x.User)
+                .Include(x => x.Review));
+
+            if (thumbInteractions != null)
+            {
+                return _mapper.Map<List<ThumbInteractionDto>>(thumbInteractions);
+            }
+
+            return null;
         }
 
         public async Task<List<ThumbInteractionDto>> GetById(Guid id)
@@ -110,7 +123,7 @@ namespace TravelAdvisor.Infrastructure.Services
             return null;
         }
 
-        public Task<List<ThumbInteractionDto>> GetList()
+        public async Task<List<ThumbInteractionDto>> GetList()
         {
             throw new NotImplementedException();
         }

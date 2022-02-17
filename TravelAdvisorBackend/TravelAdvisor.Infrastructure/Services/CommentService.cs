@@ -50,9 +50,21 @@ namespace TravelAdvisor.Infrastructure.Services
             throw new NotImplementedException();
         }
 
-        public Task<CommentDto> GetAll()
+        public async Task<List<CommentDto>> GetAll()
         {
-            throw new NotImplementedException();
+            var comments = await _unitOfWork.CommentRepository.ListAsync(
+             x => x,
+             null,
+             include: i => i
+             .Include(x => x.User)
+             .Include(x => x.Review));
+
+            if (comments != null)
+            {
+                return _mapper.Map<List<CommentDto>>(comments);
+            }
+
+            return null;
         }
 
         public async Task<List<CommentDto>> GetById(Guid id)

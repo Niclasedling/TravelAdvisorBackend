@@ -13,7 +13,7 @@ public interface IThumbInteractionService
 
         Task<List<ThumbInteractionDto>> GetById(Guid id);
 
-        Task<ThumbInteractionDto> GetAll();
+        Task<List<ThumbInteractionDto>> GetAll();
 
         Task<List<ThumbInteractionDto>> GetList();
 

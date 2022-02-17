@@ -11,7 +11,7 @@ namespace TravelAdvisor.Infrastructure.Interfaces
     {
         Task<List<CommentDto>> GetById(Guid id);
 
-        Task<CommentDto> GetAll();
+        Task<List<CommentDto>> GetAll();
 
         Task<List<CommentDto>> GetList();
 

@@ -37,12 +37,7 @@ namespace TravelAdvisor.Web.Controllers
         public async Task<IActionResult> GetByUserId(Guid id)
         {
             var item = await _thumbInteractionService.GetByUserId(id);
-            if (item != null)
-            {
-                return Ok(item);
-            }
-
-            return BadRequest($"{nameof(GetById)} returned null.");
+            return Ok(item);
         }
 
         [HttpGet("GetAll")]
@@ -80,7 +75,7 @@ namespace TravelAdvisor.Web.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update(ThumbInteractionUpdateDto thumbInteractionUpdateDto )
+        public async Task<IActionResult> Update(ThumbInteractionUpdateDto thumbInteractionUpdateDto)
         {
             var success = await _thumbInteractionService.Update(thumbInteractionUpdateDto);
 
