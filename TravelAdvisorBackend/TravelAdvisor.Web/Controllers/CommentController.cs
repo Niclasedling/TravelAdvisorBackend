@@ -37,11 +37,7 @@ namespace TravelAdvisor.Web.Controllers
         public async Task<IActionResult> GetAll()
         {
             var item = await _commentService.GetAll();
-            if (item != null)
-            {
-                return Ok(item);
-            }
-            return BadRequest($"{nameof(GetAll)} returned null.");
+            return Ok(item);
         }
 
 

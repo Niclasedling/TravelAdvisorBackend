@@ -64,6 +64,18 @@ namespace TravelAdvisor.Web.Controllers
             return BadRequest($"{nameof(GetList)} returned null.");
         }
 
+        [HttpGet("GetListById")]
+        public async Task<IActionResult> GetListById(Guid id)
+        {
+            var item = await _thumbInteractionService.GetListById(id);
+            if (item != null)
+            {
+                return Ok(item);
+            }
+
+            return BadRequest($"{nameof(GetListById)} returned null.");
+        }
+
 
         [HttpPost("Create")]
         public async Task<IActionResult> Create(ThumbInteractionCreateDto thumbInteractionCreateDto)
