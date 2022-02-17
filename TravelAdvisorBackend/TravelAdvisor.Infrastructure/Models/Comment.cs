@@ -15,6 +15,7 @@ namespace TravelAdvisor.Infrastructure.Models
         public Guid ReviewId { get; set; }
 
         public string UserComment { get; set; }
+        public DateTime CommentCreated { get; set; }
     }
 
     public class CommentDto : CommentBase
@@ -44,6 +45,7 @@ namespace TravelAdvisor.Infrastructure.Models
         public Guid ReviewId { get; set; }
 
         public string UserComment { get; set; }
+        public DateTime CommentCreated { get; set; }
 
     }
 }

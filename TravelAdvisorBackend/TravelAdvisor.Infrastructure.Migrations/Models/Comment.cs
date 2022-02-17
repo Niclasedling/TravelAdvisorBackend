@@ -20,5 +20,7 @@ namespace TravelAdvisor.Infrastructure.Migrations.Models
         public virtual Review Review { get; set; }
 
         public string UserComment { get; set; }
+
+        public DateTime CommentCreated { get; set; } 
     }
 }
